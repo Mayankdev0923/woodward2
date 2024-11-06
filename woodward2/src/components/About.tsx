@@ -49,9 +49,7 @@ function About() {
             At Woodward 2, our rooms are designed to be a serene retreat, each
             blending cozy interiors with breathtaking mountain views. We offer
             various room categories to suit the needs of solo travelers,
-            couples, families, and adventure groups alike. Each room is
-            tastefully decorated with local art, wooden furnishings, and
-            thoughtful amenities, ensuring a restful and memorable stay in Kasol
+            couples, families, and adventure groups alike.
           </p>
           <div className="flex justify-start px-20">
             <motion.button

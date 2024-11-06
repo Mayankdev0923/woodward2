@@ -1,0 +1,70 @@
+import React from "react";
+
+function Location() {
+  return (
+    <>
+      <div className="w-full h-[10%] bg-lime-500 py-10 flex flex-col justify-center items-center space-y-5">
+        <span className="text-7xl">Reach us</span>
+      </div>
+
+      <span className="flex justify-center items-center bg-lime-200 space-x-20 p-20">
+        <div className="flex flex-grow flex-col justify-center items-center w-[40vw] h-[70vh] p-10 bg-green-800 space-y-10">
+          <div className="bg-yellow-400 w-[80%] h-[50%] p-10 flex flex-col flex-wrap space-y-5 justify-center text-xl">
+            <p>
+              {"Hotel Woodward 2, near Narayan temple,"}
+              <br />
+              {"tehsil Kasol, Jari, Himachal Pradesh 175105"}
+            </p>
+            <p>
+              {"Phone No: "}
+              &nbsp;&nbsp;
+              <br />
+              <a
+                className=" transition-all duration-300 ease-in-out hover:underline "
+                href="tel:9317707539"
+              >
+                9317707539
+              </a>
+              ,&nbsp;
+              <a
+                className=" transition-all duration-300 ease-in-out hover:underline "
+                href="tel:8219391994"
+              >
+                8219391994
+              </a>
+              ,&nbsp;
+              <br />
+              <a
+                className=" transition-all duration-300 ease-in-out hover:underline "
+                href="tel:9728020888"
+              >
+                9728020888
+              </a>
+              ,&nbsp;
+              <a
+                className=" transition-all duration-300 ease-in-out hover:underline "
+                href="tel:9215229400"
+              >
+                9215229400
+              </a>
+            </p>
+          </div>
+          <div className="bg-gray-900 text-xl rounded-lg w-[80%] h-[10%] text-center flex justify-center items-center text-white">
+            <a href="https://www.google.com/maps/place/Woodward+2+by+4wildflower/@32.0092829,77.3125712,19.04z/data=!4m6!3m5!1s0x39045d777849c18f:0x4def134125e0432c!8m2!3d32.0092886!4d77.3125674!16s%2Fg%2F11ltnny40b?entry=ttu&g_ep=EgoyMDI0MTAyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank">Get Directions on Google Maps</a>
+          </div>
+          <div className="bg-gray-900 text-xl rounded-lg w-[80%] h-[10%] text-center flex justify-center items-center text-white">
+            <a href="https://www.google.com/travel/hotels/s/H63v37QgZa5jQ8XC6" target="_blank">Find Us on Google Travel</a>
+          </div>
+        </div>
+        <div className="flex flex-grow justify-center rounded-3xl items-center w-[40vw] h-[70vh] p-10 bg-green-800">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d845.8038053720056!2d77.31149056946418!3d32.0092833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39045d777849c18f%3A0x4def134125e0432c!2sWoodward%202%20by%204wildflower!5e0!3m2!1sen!2sin!4v1730879556172!5m2!1sen!2sin"
+           className="w-full h-full rounded-3xl"
+            ></iframe>
+        </div>
+      </span>
+    </>
+  );
+}
+
+export default Location;

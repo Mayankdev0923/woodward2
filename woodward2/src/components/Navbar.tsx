@@ -1,4 +1,5 @@
 import Hvr from "./Hvr";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -6,31 +7,34 @@ function Navbar() {
       <div className="flex justify-between w-full items-center">
         <div className="px-5 py-3 text-xl">WOODWARD II</div>
         <div>
-          <ul className="flex justify-space-between items-center px-5 space-x-10 text-gray-400">
-            <a href="">
-              <li className=" hover:text-black  ease-in-out transition-duration-400">
+          <ul className="flex justify-space-between items-center px-5 space-x-10  ext-gray-400">
+            <li className=" hover:text-black  ease-in-out transition duration-400">
+              <Link to="/">
                 <Hvr text="Gallery" />
-              </li>
-            </a>
-            <a href="">
-              <li className=" hover:text-black  ease-in-out transition-duration-400">
-              <Hvr text="Rooms"/>
-              </li>
-            </a>
-            <a href="">
-              <li className=" hover:text-black  ease-in-out transition-duration-400">
-              <Hvr text="Contact Us"/>
-              </li>
-            </a>
-            <a href="">
-              <li className=" hover:text-black  ease-in-out transition-duration-400">
-              <Hvr text="Location"/>
-              </li>
-            </a>
+              </Link>
+            </li>
+
+            <li className=" hover:text-black  ease-in-out transition duration-400">
+              <Link to="/Room">
+                <Hvr text="Rooms" />
+              </Link>
+            </li>
+
+            <li className=" hover:text-black  ease-in-out transition duration-400">
+              <Link to="/About">
+                <Hvr text="Contact Us" />
+              </Link>
+            </li>
+
+            <li className=" hover:text-black  ease-in-out transition duration-400">
+              <Link to="/location">
+                <Hvr text="Location" />
+              </Link>
+            </li>
           </ul>
         </div>
-        <div className="px-5 py-3 rounded-lg bg-gray-900 text-white hover:bg-gray-600 hover:text-white ease-in-out transition-duration-400">
-          <a href="">Book Now</a>
+        <div className="px-5 py-3 rounded-lg bg-gray-900 text-white hover:bg-gray-600 hover:text-white ease-in-out transition duration-400">
+          <Link to="">Book Now</Link>
         </div>
       </div>
     </nav>

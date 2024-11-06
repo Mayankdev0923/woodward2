@@ -1,7 +1,7 @@
 function footer() {
   return (
-    <div className="w-full h-[70vh] bg-zinc-700 space-y-10 flex flex-col justify-center items-center p-10">
-      <div className="w-full text-center p-10 text-5xl text-white">
+    <div className="w-full py-10 h-[fit-content] bg-zinc-700 space-y-10 flex flex-col justify-center items-center ">
+      <div className="w-full text-center p-5 text-5xl text-white">
         WOODWARD II
       </div>
 
