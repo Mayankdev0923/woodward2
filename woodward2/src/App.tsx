@@ -10,16 +10,12 @@ import Room2 from "./components/Room2";
 import Room3 from "./components/Room3";
 import Room4 from "./components/Room4";
 import Room5 from "./components/Room5";
-import RoomNSuites from "./components/RooomNSuites"
+import Error from "./components/Error";
+import RoomNSuites from "./components/RooomNSuites";
 import { ReactLenis } from "lenis/react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -132,10 +128,18 @@ function App() {
         </>
       ),
     },
+    {
+      path: "/*",
+      element: (
+        <>
+          <Error />
+        </>
+      ),
+    },
   ]);
 
   return (
-    <ReactLenis root options={{duration:1.2}}>
+    <ReactLenis root options={{ duration: 1.2 }}>
       <main className="bg-gray-200 min-h-screen ">
         <RouterProvider router={router} />
       </main>
