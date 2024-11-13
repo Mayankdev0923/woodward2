@@ -1,12 +1,35 @@
 import { Link } from "react-router-dom";
+import backgroundImage from "../assets/valley.jpg";
+import { useNavigate } from "react-router-dom";
+import greenbg from "../assets/greenbg.jpg";
 
 function RoomNSuites() {
+  const navigate = useNavigate();
+  const Room1 = () => {
+    navigate("/Room1");
+  };
+  const Room2 = () => {
+    navigate("/Room2");
+  };
+  const Room3 = () => {
+    navigate("/Room3");
+  };
+  const Room4 = () => {
+    navigate("/Room4");
+  };
+  const Room5 = () => {
+    navigate("/Room5");
+  };
+
   return (
     <>
-      <div className="w-full text-lg text-center py-5 bg-lime-200 flex flex-col justify-center items-center space-y-5">
-        <div className="w-full h-[30vh] bg-red-400 flex flex-col justify-center items-center space-y-5">
-          <span className="text-7xl">Rooms & Suites</span>
-          <span className="text-xl w-[70%]">
+      <div className="w-full text-lg text-center bg-ltgreen py-5 bg-hwite flex flex-col justify-center items-center space-y-5 "
+      style={{ backgroundImage: `url(${greenbg})` }}>
+        <div className="w-full h-[30vh]  flex flex-col justify-center items-center space-y-5">
+          <span className="text-7xl font-MTreg text-dkbrown">
+            Rooms & Suites
+          </span>
+          <span className="text-2xl text-dkbrown w-[70%] font-NBI">
             <p>
               At Woodward 2, our rooms are designed to be a serene retreat, each
               blending cozy interiors with breathtaking mountain views. We offer
@@ -19,47 +42,65 @@ function RoomNSuites() {
           </span>
         </div>
 
-        <div className="w-full h-[300vh] bg-blue-400 flex flex-col justify-center items-center space-y-20">
+        <div className="w-full h-[300vh] flex flex-col justify-center items-center space-y-20">
           <div className="w-[90%] h-[30%] flex justify-center items-center space-x-10">
-            <div className="w-[40%] h-full bg-lime-900 flex flex-col py-20 justify-start items-center space-y-5">
-              <div className="w-[80%] h-[50%] bg-yellow-300"></div>
-              <div className="w-[80%] h-[20%] bg-yellow-300 space-y-2 flex flex-col justify-center items-center">
+            <div className="w-[40%]  h-full bg-greenish border-[calc(10px)] border-darkgreen rounded-3xl flex flex-col py-20 justify-start items-center space-y-5">
+              <div
+                className="w-[80%] h-[50%] bg-brownish  rounded-2xl"
+                style={{ backgroundImage: `url(${backgroundImage})` }}
+              ></div>
+              <div className="w-[80%] h-[20%]  space-y-2 flex flex-col justify-center items-center">
                 <span>
-                  <p className="text-2xl">Eco Room</p>
+                  <p className="text-3xl font-MTreg">-- Eco Room --</p>
                 </span>
                 <span>
-                  <p>the room that is for ecology enthusiasts.</p>
+                  <p>
+                    Our Eco-Lodge Room provides an eco-friendly stay .
+                  </p>
                 </span>
               </div>
-              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+              <button
+                onClick={Room1}
+                className="w-[80%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center"
+              >
+                <div className="w-[95%] h-[70%] border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen  text-center flex justify-center items-center text-2xl text-dkkbrown">
                   <Link to="/Room1">View Details</Link>
                 </div>
               </button>
-              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+              <button className="w-[80%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center">
+                <div className="w-[95%] h-[70%] border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen  text-center flex justify-center items-center text-2xl text-dkkbrown">
                   <Link to="/">Book Now</Link>
                 </div>
               </button>
             </div>
 
-            <div className="w-[40%] h-full bg-lime-900 flex flex-col py-20 justify-start items-center space-y-5">
-              <div className="w-[80%] h-[50%] bg-yellow-300"></div>
-              <div className="w-[80%] h-[20%] bg-yellow-300 space-y-2 flex flex-col justify-center items-center">
+            <div className="w-[40%] h-full bg-greenish border-[calc(10px)] border-darkgreen rounded-3xl flex flex-col py-20 justify-start items-center space-y-5">
+              <div
+                className="w-[80%] h-[50%] bg-brownish rounded-2xl"
+                style={{ backgroundImage: `url(${backgroundImage})` }}
+              ></div>
+              <div className="w-[80%] h-[20%]  space-y-2 flex flex-col justify-center items-center">
                 <span>
-                  <p className="text-2xl">Eco Room</p>
+                  <p className="text-3xl font-MTreg">
+                    -- Premium Suite --
+                  </p>
                 </span>
                 <span>
-                  <p>the room that is for ecology enthusiasts.</p>
+                  <p>
+                    The Premium Suite offers luxurious space.
+                  </p>
                 </span>
               </div>
-              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+              <button
+                onClick={Room2}
+                className="w-[80%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center"
+              >
+                <div className="w-[95%] h-[70%] border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen  text-center flex justify-center items-center text-2xl text-dkkbrown">
                   <Link to="/Room2">View Details</Link>
                 </div>
               </button>
-              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+              <button className="w-[80%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center">
+                <div className="w-[95%] h-[70%] border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen  text-center flex justify-center items-center text-2xl text-dkkbrown">
                   <Link to="/">Book Now</Link>
                 </div>
               </button>
@@ -67,45 +108,59 @@ function RoomNSuites() {
           </div>
 
           <div className="w-[90%] h-[30%] flex justify-center items-center space-x-10">
-            <div className="w-[40%] h-full bg-lime-900 flex flex-col py-20 justify-start items-center space-y-5">
-              <div className="w-[80%] h-[50%] bg-yellow-300"></div>
-              <div className="w-[80%] h-[20%] bg-yellow-300 space-y-2 flex flex-col justify-center items-center">
+            <div className="w-[40%] h-full bg-greenish border-[calc(10px)] border-darkgreen rounded-3xl flex flex-col py-20 justify-start items-center space-y-5">
+              <div
+                className="w-[80%] h-[50%] bg-brownish rounded-2xl"
+                style={{ backgroundImage: `url(${backgroundImage})` }}
+              ></div>
+              <div className="w-[80%] h-[20%]  space-y-2 flex flex-col justify-center items-center">
                 <span>
-                  <p className="text-2xl">Eco Room</p>
+                  <p className="text-3xl font-MTreg">-- Family Suite --</p>
                 </span>
                 <span>
-                  <p>the room that is for ecology enthusiasts.</p>
+                  <p>
+                    The Family Suite is ideal for families.
+                  </p>
                 </span>
               </div>
-              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+              <button
+                onClick={Room3}
+                className="w-[80%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center"
+              >
+                <div className="w-[95%] h-[70%] border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen  text-center flex justify-center items-center text-2xl text-dkkbrown">
                   <Link to="/Room3">View Details</Link>
                 </div>
               </button>
-              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+              <button className="w-[80%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center">
+                <div className="w-[95%] h-[70%] border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen  text-center flex justify-center items-center text-2xl text-dkkbrown">
                   <Link to="/">Book Now</Link>
                 </div>
               </button>
             </div>
 
-            <div className="w-[40%] h-full bg-lime-900 flex flex-col py-20 justify-start items-center space-y-5">
-              <div className="w-[80%] h-[50%] bg-yellow-300"></div>
-              <div className="w-[80%] h-[20%] bg-yellow-300 space-y-2 flex flex-col justify-center items-center">
+            <div className="w-[40%] h-full bg-greenish border-[calc(10px)] border-darkgreen rounded-3xl flex flex-col py-20 justify-start items-center space-y-5">
+              <div
+                className="w-[80%] h-[50%] bg-brownish rounded-2xl"
+                style={{ backgroundImage: `url(${backgroundImage})` }}
+              ></div>
+              <div className="w-[80%] h-[20%]  space-y-2 flex flex-col justify-center items-center">
                 <span>
-                  <p className="text-2xl">Eco Room</p>
+                  <p className="text-3xl font-MTreg">-- Superior Room with Balcony --</p>
                 </span>
                 <span>
-                  <p>the room that is for ecology enthusiasts.</p>
+                  <p>The Superior Room provides an expansive living space.</p>
                 </span>
               </div>
-              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+              <button
+                onClick={Room4}
+                className="w-[80%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center"
+              >
+                <div className="w-[95%] h-[70%] border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen  text-center flex justify-center items-center text-2xl text-dkkbrown">
                   <Link to="/Room4">View Details</Link>
                 </div>
               </button>
-              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+              <button className="w-[80%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center">
+                <div className="w-[95%] h-[70%] border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen  text-center flex justify-center items-center text-2xl text-dkkbrown">
                   <Link to="/">Book Now</Link>
                 </div>
               </button>
@@ -113,23 +168,29 @@ function RoomNSuites() {
           </div>
 
           <div className="w-[90%] h-[30%] flex justify-center items-center space-x-10">
-            <div className="w-[40%] h-full bg-lime-900 flex flex-col py-20 justify-start items-center space-y-5">
-              <div className="w-[80%] h-[50%] bg-yellow-300"></div>
-              <div className="w-[80%] h-[20%] bg-yellow-300 space-y-2 flex flex-col justify-center items-center">
+            <div className="w-[40%] h-full bg-greenish border-[calc(10px)] border-darkgreen rounded-3xl flex flex-col py-20 justify-start items-center space-y-5">
+              <div
+                className="w-[80%] h-[50%] bg-brownish  rounded-2xl"
+                style={{ backgroundImage: `url(${backgroundImage})` }}
+              ></div>
+              <div className="w-[80%] h-[20%]  space-y-2 flex flex-col justify-center items-center">
                 <span>
-                  <p className="text-2xl">Eco Room</p>
+                  <p className="text-3xl font-MTreg">-- Deluxe Mountain View Room --</p>
                 </span>
                 <span>
-                  <p>the room that is for ecology enthusiasts.</p>
+                  <p>It is perfect for couples or solo travelers.</p>
                 </span>
               </div>
-              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+              <button
+                onClick={Room5}
+                className="w-[80%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center"
+              >
+                <div className="w-[95%] h-[70%] border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen  text-center flex justify-center items-center text-2xl text-dkkbrown">
                   <Link to="/Room5">View Details</Link>
                 </div>
               </button>
-              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+              <button className="w-[80%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center">
+                <div className="w-[95%] h-[70%] border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen  text-center flex justify-center items-center text-2xl text-dkkbrown">
                   <Link to="/">Book Now</Link>
                 </div>
               </button>

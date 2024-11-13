@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "MTreg";
+  src: url("C:\Users\mayan\Desktop\Allcodes\React\woodward 2 website\woodward2\src\assets\fonts\plantin-mt-pro-cufonfonts\PlantinMTProRgIt.TTF")
+    format("ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NantesBoldItalic";
+  src: url("C:\Users\mayan\Desktop\Allcodes\React\woodward 2 website\woodward2\src\assets\fonts\Nantesfont\Nantes-BoldItalic.ttf")
+    format("ttf");
+  font-weight: normal;
+  font-style: normal;
+}

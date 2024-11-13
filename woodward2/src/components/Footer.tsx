@@ -1,11 +1,13 @@
+import backgroundImage from "../assets/footerbg.jpg";
 function footer() {
   return (
-    <div className="w-full py-10 h-[fit-content] bg-zinc-700 space-y-10 flex flex-col justify-center items-center ">
-      <div className="w-full text-center p-5 text-5xl text-white">
+    <div className="w-full py-10 h-[fit-content] bg-dkkbrown space-y-10 flex flex-col justify-center items-center "
+    style={{ backgroundImage: `url(${backgroundImage})` }}>
+      <div className="font-MTreg w-full text-center p-5 text-5xl text-peachish">
         WOODWARD II
       </div>
 
-      <div className="w-full text-center text-white text-lg p-5 flex justify-center space-x-20 items-center">
+      <div className=" w-full text-center text-white text-xl font-semibold p-5 flex justify-center space-x-20 items-center">
         <div className="flex flex-col space-y-5 w-[20vw] text-left flex-wrap">
           <p>
             {"Hotel Woodward 2, near Narayan temple,"}
@@ -40,7 +42,7 @@ function footer() {
           </p>
         </div>
         <div className="flex justify-center space-x-20">
-          <ul className="flex flex-col space-y-5 w-[10vw] text-left flex-wrap border-l-2 border-gray-400 px-10">
+          <ul className="flex flex-col space-y-5 w-[10vw] text-left flex-wrap border-l-2 border-white px-10">
             <li>
               <a href="" className="hover:underline">Rooms</a>
             </li>
@@ -57,7 +59,7 @@ function footer() {
               <a href="" className="hover:underline">Book Now</a>
             </li>
           </ul>
-          <ul className="flex flex-col space-y-5 w-[10vw] text-left flex-wrap border-l-2 border-gray-400 px-10">
+          <ul className="flex flex-col space-y-5 w-[10vw] text-left flex-wrap border-l-2 border-white px-10">
             <li>
               <a href="" className="hover:underline">Terms & Conditions</a>
             </li>
@@ -71,7 +73,7 @@ function footer() {
         </div>
       </div>
 
-      <div className="w-full text-center p-10 text-gray-400">
+      <div className="font-MTreg w-full text-center p-10 text-white filter brightness-75">
         WOODWARD II by 4WILDFLOWER
       </div>
     </div>

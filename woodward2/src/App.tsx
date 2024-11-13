@@ -1,5 +1,4 @@
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
 import About from "./components/About";
 import Location from "./components/Location";
 import Amenities from "./components/Amenities";
@@ -12,7 +11,7 @@ import Room3 from "./components/Room3";
 import Room4 from "./components/Room4";
 import Room5 from "./components/Room5";
 import RoomNSuites from "./components/RooomNSuites"
-import { ReactLenis, useLenis } from "lenis/react";
+import { ReactLenis } from "lenis/react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -20,9 +19,6 @@ import {
 
 
 function App() {
-  const lenis = useLenis(({ scroll }) => {
-    // called every scroll
-  });
 
   const router = createBrowserRouter([
     {
@@ -31,7 +27,7 @@ function App() {
         <>
           <Navbar />
           <Navspace />
-          <Hero />
+          {/* <Hero /> */}
           <About />
           <Footer />
         </>
