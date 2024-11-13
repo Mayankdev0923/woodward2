@@ -1,5 +1,5 @@
 import img1 from "../assets/Heroimg.jpg";
-import Gallery from "./Gallery";
+import Gallerybento from "./Gallerybento";
 import { motion } from "framer-motion";
 
 function About() {
@@ -39,7 +39,7 @@ function About() {
           className="flex-grow rounded-3xl bg-cover bg-center p-10 w-[calc(70vw)] h-[calc(70vh)]"
           style={{ backgroundImage: `url(${img1})` }}
         ></div>
-        <div className="flex-grow w-[70vw] h-[70vh] p-10">
+        <div className="flex-grow w-[70vw] h-[70vh] flex flex-col justify-center p-10">
           <h2 className="p-10 text-left text-5xl">
             Rooms & Amenities:
             <br />
@@ -65,7 +65,7 @@ function About() {
 
       <div className="px-20 py-40 justify-center items-start">
         <h2 className="p-5 text-center text-4xl">Visit Our Gallery</h2>
-        <Gallery />
+        <Gallerybento />
         <div className="flex justify-center items-center p-5 py-10 ">
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -78,7 +78,7 @@ function About() {
       </div>
 
       <div className=" py-40 px-20 flex justify-between space-x-10 items-center ">
-        <div className="flex-grow w-[70vw] h-[70vh] p-10 ">
+        <div className="flex-grow w-[70vw] h-[70vh] p-10 flex flex-col justify-center">
           <h2 className="p-10 text-right text-5xl">Bookings & Policies</h2>
           <p className="p-10 text-right text-2xl">
             Our flexible booking options and guest-centered policies ensure a

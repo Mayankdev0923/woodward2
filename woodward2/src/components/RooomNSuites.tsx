@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function RoomNSuites() {
   return (
     <>
@@ -17,8 +19,8 @@ function RoomNSuites() {
           </span>
         </div>
 
-        <div className="w-full h-[200vh] bg-blue-400 flex flex-col justify-center items-center space-y-20">
-          <div className="w-[90%] h-[40%] flex justify-center items-center space-x-10">
+        <div className="w-full h-[300vh] bg-blue-400 flex flex-col justify-center items-center space-y-20">
+          <div className="w-[90%] h-[30%] flex justify-center items-center space-x-10">
             <div className="w-[40%] h-full bg-lime-900 flex flex-col py-20 justify-start items-center space-y-5">
               <div className="w-[80%] h-[50%] bg-yellow-300"></div>
               <div className="w-[80%] h-[20%] bg-yellow-300 space-y-2 flex flex-col justify-center items-center">
@@ -30,12 +32,17 @@ function RoomNSuites() {
                 </span>
               </div>
               <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center"></div>
+                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+                  <Link to="/Room1">View Details</Link>
+                </div>
               </button>
               <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center"></div>
+                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+                  <Link to="/">Book Now</Link>
+                </div>
               </button>
             </div>
+
             <div className="w-[40%] h-full bg-lime-900 flex flex-col py-20 justify-start items-center space-y-5">
               <div className="w-[80%] h-[50%] bg-yellow-300"></div>
               <div className="w-[80%] h-[20%] bg-yellow-300 space-y-2 flex flex-col justify-center items-center">
@@ -47,14 +54,19 @@ function RoomNSuites() {
                 </span>
               </div>
               <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center"></div>
+                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+                  <Link to="/Room2">View Details</Link>
+                </div>
               </button>
               <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center"></div>
+                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+                  <Link to="/">Book Now</Link>
+                </div>
               </button>
             </div>
           </div>
-          <div className="w-[90%] h-[40%] flex justify-center items-center space-x-10">
+
+          <div className="w-[90%] h-[30%] flex justify-center items-center space-x-10">
             <div className="w-[40%] h-full bg-lime-900 flex flex-col py-20 justify-start items-center space-y-5">
               <div className="w-[80%] h-[50%] bg-yellow-300"></div>
               <div className="w-[80%] h-[20%] bg-yellow-300 space-y-2 flex flex-col justify-center items-center">
@@ -66,12 +78,17 @@ function RoomNSuites() {
                 </span>
               </div>
               <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center"></div>
+                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+                  <Link to="/Room3">View Details</Link>
+                </div>
               </button>
               <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center"></div>
+                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+                  <Link to="/">Book Now</Link>
+                </div>
               </button>
             </div>
+
             <div className="w-[40%] h-full bg-lime-900 flex flex-col py-20 justify-start items-center space-y-5">
               <div className="w-[80%] h-[50%] bg-yellow-300"></div>
               <div className="w-[80%] h-[20%] bg-yellow-300 space-y-2 flex flex-col justify-center items-center">
@@ -83,10 +100,38 @@ function RoomNSuites() {
                 </span>
               </div>
               <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center"></div>
+                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+                  <Link to="/Room4">View Details</Link>
+                </div>
               </button>
               <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
-                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center"></div>
+                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+                  <Link to="/">Book Now</Link>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div className="w-[90%] h-[30%] flex justify-center items-center space-x-10">
+            <div className="w-[40%] h-full bg-lime-900 flex flex-col py-20 justify-start items-center space-y-5">
+              <div className="w-[80%] h-[50%] bg-yellow-300"></div>
+              <div className="w-[80%] h-[20%] bg-yellow-300 space-y-2 flex flex-col justify-center items-center">
+                <span>
+                  <p className="text-2xl">Eco Room</p>
+                </span>
+                <span>
+                  <p>the room that is for ecology enthusiasts.</p>
+                </span>
+              </div>
+              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
+                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+                  <Link to="/Room5">View Details</Link>
+                </div>
+              </button>
+              <button className="w-[80%] h-[10%] bg-yellow-300 flex justify-center items-center">
+                <div className="w-[95%] h-[70%] border-2 border-green-800 hover:border-0 text-center flex justify-center items-center text-xl text-gray-900">
+                  <Link to="/">Book Now</Link>
+                </div>
               </button>
             </div>
           </div>
