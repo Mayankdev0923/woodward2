@@ -4,7 +4,7 @@ function Location() {
   return (
     <div className="bg-ltgreen"
     style={{ backgroundImage: `url(${greenbg})` }}>
-      <div className="w-full h-[10%]  py-10 flex flex-col justify-center text-dkkbrown items-center space-y-5">
+      <div className="w-full h-[10%]  py-10 flex flex-col justify-center text-dkbrown items-center space-y-5">
         <span className="text-7xl font-MTreg ">Reach us</span>
         <div className="font-NBI w-[80%] p-10 text-center text-2xl">
             <p>

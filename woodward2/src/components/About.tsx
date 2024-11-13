@@ -1,7 +1,7 @@
 import img1 from "../assets/Heroimg.jpg";
 import Gallerybento from "./Gallerybento";
 import { motion } from "framer-motion";
-import backgroundImage from "../assets/valley.jpg";
+import backgroundImage from "../assets/river.jpg";
 import greenbg from "../assets/greenbg.jpg";
 import { useNavigate } from "react-router-dom";
 
@@ -26,35 +26,37 @@ function About() {
       style={{ backgroundImage: `url(${greenbg})` }}
     >
       <div
-        className="flex justify-center rounded bg-cover bg-center filter brightness-75 text-white"
+        className="flex justify-center rounded bg-cover bg-bottom filter brightness-100 text-white"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
-        <div className="py-40 justify-center items-center w-[90vh]">
-          <div className="font-NBI py-10 px-10 text-center text-7xl">
-            Welcome to Woodward-2, Your Himalayan Retreat in Kasol
-          </div>
-          <div className="font-NBI p-10 text-center text-2xl">
-            <p>
-              Nestled amidst the pristine mountains and lush greenery of Kasol,
-              Himachal Pradesh, Woodward 2 is more than just a place to
-              stay—it's an experience designed to connect you with nature,
-              adventure, and serenity. Our boutique hotel offers a blend of
-              rustic charm and modern comforts, making it a sanctuary for
-              travelers seeking tranquility and inspiration in the heart of the
-              Himalayas.
-            </p>
-          </div>
-          <div
-            className="flex justify-center items-center p-5 "
-            onClick={BookNow}
-          >
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="p-5 rounded text-xl text-white outline outline-2 outline-white hover:outline-none hover:text-white hover:bg-brownish transition-duration-900"
+        <div className="w-full h-full backdrop-blur-sm flex justify-center items-center">
+          <div className="py-40 justify-center items-center w-[90vh]">
+            <div className="font-NBI py-10 px-10 text-center text-7xl">
+              Welcome to Woodward-2, Your Himalayan Retreat in Kasol
+            </div>
+            <div className="font-NBI p-10 text-center text-2xl">
+              <p>
+                Nestled amidst the pristine mountains and lush greenery of Kasol,
+                Himachal Pradesh, Woodward 2 is more than just a place to
+                stay—it's an experience designed to connect you with nature,
+                adventure, and serenity. Our boutique hotel offers a blend of
+                rustic charm and modern comforts, making it a sanctuary for
+                travelers seeking tranquility and inspiration in the heart of the
+                Himalayas.
+              </p>
+            </div>
+            <div
+              className="flex justify-center items-center p-5 "
+              onClick={BookNow}
             >
-              -- Book Now --
-            </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="p-5 rounded text-xl text-white outline outline-2 outline-white hover:outline-none hover:text-ltgreen hover:bg-dkbrown transition-duration-900"
+              >
+                -- Book Now --
+              </motion.button>
+            </div>
           </div>
         </div>
       </div>
