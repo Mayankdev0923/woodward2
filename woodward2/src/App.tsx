@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar";
 import About from "./components/About";
 import Location from "./components/Location";
 import Amenities from "./components/Amenities";
+import BookingPolicies from "./components/Policies";
 import Footer from "./components/Footer";
 import Gallery from "./components/Gallery";
 import Navspace from "./components/Navspace";
@@ -14,6 +15,8 @@ import Error from "./components/Error";
 import RoomNSuites from "./components/RooomNSuites";
 import { ReactLenis } from "lenis/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import TermsAndPolicies from "./components/Terms";
+import LocalAttractions from "./components/LocalAttractions";
 
 function App() {
   const router = createBrowserRouter([
@@ -124,6 +127,39 @@ function App() {
           <Navbar />
           <Navspace />
           <Room5 />
+          <Footer />
+        </>
+      ),
+    },
+    {
+      path: "/BookingPolicies",
+      element: (
+        <>
+          <Navbar />
+          <Navspace />
+          <BookingPolicies />
+          <Footer />
+        </>
+      ),
+    },
+    {
+      path: "/TermsAndPolicies",
+      element: (
+        <>
+          <Navbar />
+          <Navspace />
+          <TermsAndPolicies />
+          <Footer />
+        </>
+      ),
+    },
+    {
+      path: "/LocalAttractions",
+      element: (
+        <>
+          <Navbar />
+          <Navspace />
+          <LocalAttractions />
           <Footer />
         </>
       ),

@@ -1,14 +1,21 @@
+import { Link } from "react-router-dom";
 import backgroundImage from "../assets/footerbg.jpg";
-function footer() {
+
+function Footer() {
   return (
-    <div className="w-full py-10 h-[fit-content] bg-dkkbrown space-y-10 flex flex-col justify-center items-center "
-    style={{ backgroundImage: `url(${backgroundImage})` }}>
-      <div className="font-MTreg w-full text-center p-5 text-5xl text-peachish">
+    <div
+      className="w-full py-10 h-fit bg-dkkbrown flex flex-col justify-center items-center space-y-10"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
+      {/* Footer Title */}
+      <div className="font-MTreg w-full text-center text-3xl md:text-5xl text-peachish p-5">
         WOODWARD II
       </div>
 
-      <div className=" w-full text-center text-white text-xl font-semibold p-5 flex justify-center space-x-20 items-center">
-        <div className="flex flex-col space-y-5 w-[20vw] text-left flex-wrap">
+      {/* Footer Content */}
+      <div className="w-full flex flex-col md:flex-row justify-center items-center text-white text-center md:text-left text-lg md:text-xl font-semibold space-y-10 md:space-y-0 md:space-x-20 p-5">
+        {/* Address Section */}
+        <div className="flex flex-col space-y-5 w-full md:w-[30%] px-5">
           <p>
             {"Hotel Woodward 2, near Narayan temple,"}
             <br />
@@ -16,68 +23,93 @@ function footer() {
           </p>
           <p>
             {"Phone No: "}
-            &nbsp;&nbsp;
-            <a className=" transition-all duration-300 ease-in-out hover:underline " href="tel:9317707539">
+            <a
+              className="transition-all duration-300 ease-in-out hover:underline"
+              href="tel:9317707539"
+            >
               9317707539
             </a>
             ,&nbsp;
-            <a className=" transition-all duration-300 ease-in-out hover:underline " href="tel:8219391994">
+            <a
+              className="transition-all duration-300 ease-in-out hover:underline"
+              href="tel:8219391994"
+            >
               8219391994
             </a>
             ,&nbsp;
             <br />
-            <a className=" transition-all duration-300 ease-in-out hover:underline " href="tel:9728020888">
+            <a
+              className="transition-all duration-300 ease-in-out hover:underline"
+              href="tel:9728020888"
+            >
               9728020888
             </a>
             ,&nbsp;
-            <a className=" transition-all duration-300 ease-in-out hover:underline " href="tel:9215229400">
+            <a
+              className="transition-all duration-300 ease-in-out hover:underline"
+              href="tel:9215229400"
+            >
               9215229400
             </a>
           </p>
-          <p className=" transition-all duration-300 ease-in-out hover:underline ">
+          <p className="transition-all duration-300 ease-in-out hover:underline">
             Mail:{" "}
             <a href="mailto:4wildflowerhospitality@gmail.com">
               4wildflowerhospitality@gmail.com
             </a>
           </p>
         </div>
-        <div className="flex justify-center space-x-20">
-          <ul className="flex flex-col space-y-5 w-[10vw] text-left flex-wrap border-l-2 border-white px-10">
+
+        {/* Links Section */}
+        <div className="flex flex-col md:flex-row justify-center items-center md:items-start space-y-10 md:space-y-0 md:space-x-10 px-5">
+          <ul className="flex flex-col space-y-3 w-full md:w-auto text-center md:text-left border-t md:border-t-0 md:border-l-2 border-white pt-5 md:pt-0 md:px-5">
             <li>
-              <a href="" className="hover:underline">Rooms</a>
+              <Link to="/Room" className="hover:underline">
+                Rooms
+              </Link>
             </li>
             <li>
-              <a href="" className="hover:underline">Location</a>
+              <Link to="/LocalAttractions" className="hover:underline">
+                Local Attractions
+              </Link>
             </li>
             <li>
-              <a href="" className="hover:underline">Amenities</a>
+              <Link to="/location" className="hover:underline">
+                Location
+              </Link>
             </li>
             <li>
-              <a href="" className="hover:underline">Contact Us</a>
+              <Link to="/Amenities" className="hover:underline">
+                Amenities
+              </Link>
             </li>
             <li>
-              <a href="" className="hover:underline">Book Now</a>
+              <Link to="/404" className="hover:underline">
+                Book Now
+              </Link>
             </li>
           </ul>
-          <ul className="flex flex-col space-y-5 w-[10vw] text-left flex-wrap border-l-2 border-white px-10">
+          <ul className="flex flex-col space-y-3 w-full md:w-auto text-center md:text-left border-t md:border-t-0 md:border-l-2 border-white pt-5 md:pt-0 md:px-5">
             <li>
-              <a href="" className="hover:underline">Terms & Conditions</a>
+              <Link to="/TermsAndPolicies" className="hover:underline">
+                Terms & Conditions
+              </Link>
             </li>
             <li>
-              <a href="" className="hover:underline">Refund Policy</a>
-            </li>
-            <li>
-              <a href="" className="hover:underline">Bookings & Reservations</a>
+              <Link to="/BookingPolicies" className="hover:underline">
+                Bookings & Reservations
+              </Link>
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="font-MTreg w-full text-center p-10 text-white filter brightness-75">
+      {/* Footer Bottom Text */}
+      <div className="font-MTreg w-full text-center text-sm md:text-base p-5 text-white filter brightness-75">
         WOODWARD II by 4WILDFLOWER
       </div>
     </div>
   );
 }
 
-export default footer;
+export default Footer;

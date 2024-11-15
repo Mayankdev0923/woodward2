@@ -7,52 +7,47 @@ import { useNavigate } from "react-router-dom";
 
 function About() {
   const navigate = useNavigate();
-  const BookNow = () => {
-    navigate("/");
-  };
-  const Room = () => {
-    navigate("/Room");
-  };
-  const Gallery = () => {
-    navigate("/Gallery");
-  };
-  const Bookings = () => {
-    navigate("/");
-  };
+  const BookNow = () => navigate("/");
+  const Room = () => navigate("/Room");
+  const Gallery = () => navigate("/Gallery");
+  const Bookings = () => navigate("/");
 
   return (
     <section
-      className="text-lg  items-center  ease-in-out bg-ltgreen text-dkkbrown font-MTreg"
+      className={
+        "text-base sm:text-lg items-center ease-in-out bg-ltgreen text-dkkbrown font-MTreg"
+      }
       style={{ backgroundImage: `url(${greenbg})` }}
     >
+      {/* Hero Section */}
       <div
         className="flex justify-center rounded bg-cover bg-bottom filter brightness-100 text-white"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
-        <div className="w-full h-full backdrop-blur-sm flex justify-center items-center">
-          <div className="py-40 justify-center items-center w-[90vh]">
-            <div className="font-NBI py-10 px-10 text-center text-7xl">
+        <div className="w-full h-full backdrop-blur-xl sm:backdrop-blur-sm lg:backdrop-blur-none flex justify-center items-center">
+          {/* Add a dark overlay behind the text */}
+          <div className="absolute inset-0 bg-black opacity-40"></div>{" "}
+          {/* Dark overlay */}
+          <div className="relative py-20 sm:py-40 w-full max-w-screen-lg px-5 text-center z-10">
+            {" "}
+            {/* z-10 to ensure text is on top of overlay */}
+            <h1 className="font-NBI py-10 px-5 text-3xl sm:text-5xl lg:text-7xl text-shadow-md">
               Welcome to Woodward-2, Your Himalayan Retreat in Kasol
-            </div>
-            <div className="font-NBI p-10 text-center text-2xl">
-              <p>
-                Nestled amidst the pristine mountains and lush greenery of Kasol,
-                Himachal Pradesh, Woodward 2 is more than just a place to
-                stay—it's an experience designed to connect you with nature,
-                adventure, and serenity. Our boutique hotel offers a blend of
-                rustic charm and modern comforts, making it a sanctuary for
-                travelers seeking tranquility and inspiration in the heart of the
-                Himalayas.
-              </p>
-            </div>
-            <div
-              className="flex justify-center items-center p-5 "
-              onClick={BookNow}
-            >
+            </h1>
+            <p className="font-NBI p-5 text-xl sm:text-2xl">
+              Nestled amidst the pristine mountains and lush greenery of Kasol,
+              Himachal Pradesh, Woodward 2 is more than just a place to
+              stay—it's an experience designed to connect you with nature,
+              adventure, and serenity. Our boutique hotel offers a blend of
+              rustic charm and modern comforts, making it a sanctuary for
+              travelers seeking tranquility and inspiration in the heart of the
+              Himalayas.
+            </p>
+            <div className="flex justify-center p-5" onClick={BookNow}>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                className="p-5 rounded text-xl text-white outline outline-2 outline-white hover:outline-none hover:text-ltgreen hover:bg-dkbrown transition-duration-900"
+                className="px-6 py-3 rounded text-lg sm:text-xl text-white outline outline-2 outline-white hover:outline-none hover:text-ltgreen hover:bg-dkbrown transition duration-300"
               >
                 -- Book Now --
               </motion.button>
@@ -61,28 +56,29 @@ function About() {
         </div>
       </div>
 
-      <div className=" p-20 flex justify-between space-x-10 items-center">
+      {/* Rooms & Amenities Section */}
+      <div className="p-10 sm:p-20 flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-10">
         <div
-          className="flex-grow rounded-3xl bg-cover bg-center p-10 w-[calc(70vw)] h-[calc(70vh)]"
+          className="flex-grow rounded-3xl bg-cover bg-center w-full h-60 sm:h-80 lg:w-[45vw] lg:h-[calc(70vh)]"
           style={{ backgroundImage: `url(${img1})` }}
         ></div>
-        <div className="flex-grow w-[70vw] h-[70vh] flex flex-col justify-center p-10">
-          <h2 className="p-10 text-left text-5xl">
+        <div className="flex-grow w-full lg:w-[45vw] flex flex-col justify-center px-5 sm:px-10">
+          <h2 className="text-left text-3xl sm:text-4xl lg:text-5xl">
             Rooms & Amenities:
             <br />
             Comfort with a Touch of Nature
           </h2>
-          <p className="p-10 text-left text-2xl">
+          <p className="pt-5 text-left text-lg sm:text-xl lg:text-2xl">
             At Woodward 2, our rooms are designed to be a serene retreat, each
             blending cozy interiors with breathtaking mountain views. We offer
             various room categories to suit the needs of solo travelers,
             couples, families, and adventure groups alike.
           </p>
-          <div className="flex justify-start px-20" onClick={Room}>
+          <div className="flex justify-start mt-5" onClick={Room}>
             <motion.button
               whileHover={{ scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="py-3 px-5 rounded text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition-duration-900"
+              className="py-2 px-5 rounded text-lg sm:text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition duration-300"
             >
               -- Know More --
             </motion.button>
@@ -90,44 +86,45 @@ function About() {
         </div>
       </div>
 
-      <div className="px-20 py-40 justify-center items-start">
-        <h2 className="p-5 text-center text-4xl">Visit Our Gallery</h2>
+      {/* Gallery Section */}
+      <div className="px-5 sm:px-20 py-20 text-center">
+        <h2 className="p-5 text-3xl sm:text-4xl">Visit Our Gallery</h2>
         <Gallerybento />
-        <div
-          className="flex justify-center items-center p-5 py-10 "
-          onClick={Gallery}
-        >
+        <div className="flex justify-center p-5 py-10" onClick={Gallery}>
           <motion.button
             whileHover={{ scale: 1.1 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="p-5 rounded text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition-duration-900"
+            className="px-6 py-3 rounded text-lg sm:text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition duration-300"
           >
             -- View More --
           </motion.button>
         </div>
       </div>
 
-      <div className=" py-40 px-20 flex justify-between space-x-10 items-center ">
-        <div className="flex-grow w-[70vw] h-[70vh] p-10 flex flex-col justify-center">
-          <h2 className="p-10 text-right text-5xl">Bookings & Policies</h2>
-          <p className="p-10 text-right text-2xl">
+      {/* Bookings & Policies Section */}
+      <div className="px-5 sm:px-20 py-10 sm:py-20 flex flex-col lg:flex-row-reverse items-center space-y-10 lg:space-y-0 lg:space-x-10">
+        <div
+          className="flex-grow rounded-3xl bg-cover bg-center w-full h-60 sm:h-80 lg:w-[45vw] lg:h-[calc(70vh)]"
+          style={{ backgroundImage: `url(${img1})` }}
+        ></div>
+        <div className="flex-grow w-full lg:w-[45vw] flex flex-col justify-center px-5 sm:px-10">
+          <h2 className="text-right text-3xl sm:text-4xl lg:text-5xl">
+            Bookings & Policies
+          </h2>
+          <p className="pt-5 text-right text-lg sm:text-xl lg:text-2xl">
             Our flexible booking options and guest-centered policies ensure a
             smooth and reliable experience for the customers.
           </p>
-          <div className="flex justify-end px-20" onClick={Bookings}>
+          <div className="flex justify-end mt-5" onClick={Bookings}>
             <motion.button
               whileHover={{ scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="p-5 rounded text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition-duration-900"
+              className="py-2 px-5 rounded text-lg sm:text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition duration-300"
             >
               -- View More --
             </motion.button>
           </div>
         </div>
-        <div
-          className="flex-grow rounded-3xl bg-cover bg-center p-10 w-[calc(70vw)] h-[calc(70vh)]"
-          style={{ backgroundImage: `url(${img1})` }}
-        ></div>
       </div>
     </section>
   );

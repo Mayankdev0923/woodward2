@@ -1,8 +1,5 @@
-
 function Navspace() {
-  return (
-    <div className="w-full h-[calc(92px)]"></div>
-  )
+  return <div className="w-full h-[calc(88px)] bg-greenish"></div>;
 }
 
-export default Navspace
+export default Navspace;

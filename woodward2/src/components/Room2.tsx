@@ -5,22 +5,24 @@ import { motion } from "framer-motion";
 function Room2() {
   return (
     <>
-      <div className="w-full h-[120vh] flex  justify-center items-center text-dkkbrown  bg-ltgreen"
-      style={{ backgroundImage: `url(${greenbg})` }}>
-        <div className="flex justify-center flex-col items-center space-y-10 p-20 w-full h-[100vh]">
-          <div className="flex justify-center items-center rounded-3xl text-5xl px-5 py-4 border-2 border-dkkbrown">
-            <div className="border-2 border-dkkbrown rounded-2xl px-7 font-MTreg py-5">
+      <div
+        className="w-full pt-20 h-[120vh] flex justify-center items-center text-dkkbrown bg-ltgreen"
+        style={{ backgroundImage: `url(${greenbg})`, backgroundSize: "cover" }}
+      >
+        <div className="flex justify-center flex-col items-center space-y-10 p-10 pb-40 md:pt-20 pt-40 md:p-20 w-full h-full">
+          <div className="flex justify-center items-center text-3xl md:text-5xl rounded-3xl px-4 py-4 border-2 border-dkkbrown w-full max-w-6xl">
+            <div className="border-2  w-full text-center  rounded-2xl border-dkkbrown px-7 py-5 font-MTreg">
               -- Premium Suite with Panoramic Views --
             </div>
           </div>
-          <div className=" p-20 flex justify-between space-x-10 items-center">
+          <div className="flex flex-col md:flex-row p-5  md:p-20 justify-between space-y-10 md:space-y-0 items-center w-full max-w-8xl">
             <div
-              className="flex-grow rounded-3xl bg-cover bg-center p-10 w-[70%] h-[90%]"
+              className="w-full md:w-[45%] h-[80%] bg-cover bg-center rounded-3xl"
               style={{ backgroundImage: `url(${img1})` }}
             ></div>
-            <div className="flex-grow w-[70%] h-[90%] flex flex-col justify-center p-10">
-              <h2 className="px-10 text-left text-5xl font-MTreg">Description:</h2>
-              <p className="p-10 text-left text-2xl">
+            <div className="flex-grow w-full md:w-[45%] flex flex-col justify-center p-5 md:p-10">
+              <h2 className="text-3xl md:text-5xl font-MTreg">Description:</h2>
+              <p className="p-5 text-lg md:text-2xl">
                 The Premium Suite is our most luxurious option, featuring
                 expansive windows for panoramic mountain and valley views. This
                 spacious suite offers a private living room, making it ideal for
@@ -36,11 +38,11 @@ function Room2() {
                 <br />
                 <b>Capacity:</b> 2 guests (perfect for romantic getaways).
               </p>
-              <div className="flex justify-start px-10">
+              <div className="flex justify-start px-5 md:px-10">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 300 }}
-                  className="py-3 font-MTreg px-5 rounded text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition-duration-900"
+                  className="py-3 px-5 font-MTreg rounded text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition duration-300"
                 >
                   -- Book Now --
                 </motion.button>
