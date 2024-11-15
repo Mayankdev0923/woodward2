@@ -18,6 +18,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TermsAndPolicies from "./components/Terms";
 import LocalAttractions from "./components/LocalAttractions";
 
+
 function App() {
   const router = createBrowserRouter([
     {
