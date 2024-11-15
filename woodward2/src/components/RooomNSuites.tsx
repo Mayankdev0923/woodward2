@@ -12,7 +12,7 @@ function RoomNSuites() {
         style={{ backgroundImage: `url(${greenbg})`, backgroundSize: "cover" }}
       >
         {/* Increased height of the header section */}
-        <div className="w-full h-[40vh] flex flex-col justify-center items-center space-y-5 px-4 md:px-10">
+        <div className="w-full  flex flex-col justify-center items-center space-y-5 px-4 md:px-10">
           <span className="text-5xl md:text-7xl font-MTreg text-dkbrown">
             Rooms & Suites
           </span>

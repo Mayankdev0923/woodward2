@@ -6,10 +6,10 @@ function Room4() {
   return (
     <>
       <div
-        className="w-full h-[120vh] flex justify-center items-center text-dkkbrown bg-ltgreen"
+        className="w-full flex justify-center items-center text-dkkbrown bg-ltgreen"
         style={{ backgroundImage: `url(${greenbg})`, backgroundSize: "cover" }}
       >
-        <div className="flex justify-center flex-col items-center space-y-10 p-10 pb-40 md:pt-20 pt-40 md:p-20 w-full h-full">
+        <div className="flex justify-center flex-col items-center space-y-10 p-10 md:p-20 w-full h-full">
           <div className="flex justify-center items-center text-3xl md:text-5xl rounded-3xl px-5 py-4 border-2 border-dkkbrown w-full max-w-4xl">
             <div className="border-2  w-full text-center  rounded-2xl border-dkkbrown px-7 py-5 font-MTreg">
               -- Superior Room with Balcony --
