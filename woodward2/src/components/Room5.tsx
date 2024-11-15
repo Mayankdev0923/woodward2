@@ -15,7 +15,7 @@ function Room5() {
               -- Deluxe Mountain View Room --
             </div>
           </div>
-          <div className="flex flex-col md:flex-row p-5 md:p-20 justify-between space-y-10 md:space-y-0 items-center w-full max-w-8xl">
+          <div className="flex flex-col md:flex-row p-5 h-[0px] md:h-[550px] md:p-20 justify-between space-y-10 md:space-y-0 items-center w-full max-w-8xl">
             <div
               className="w-full md:w-[45%] h-[80%] bg-cover bg-center rounded-3xl"
               style={{ backgroundImage: `url(${img1})` }}
