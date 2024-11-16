@@ -17,6 +17,7 @@ import { ReactLenis } from "lenis/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TermsAndPolicies from "./components/Terms";
 import LocalAttractions from "./components/LocalAttractions";
+import HotelBookingForm from "./components/Book";
 
 
 function App() {
@@ -170,6 +171,17 @@ function App() {
       element: (
         <>
           <Error />
+        </>
+      ),
+    },
+    {
+      path: "/Book",
+      element: (
+        <>
+          <Navbar />
+          <Navspace />
+          <HotelBookingForm />
+          <Footer />
         </>
       ),
     },

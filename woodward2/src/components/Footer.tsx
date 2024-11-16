@@ -84,7 +84,7 @@ function Footer() {
               </Link>
             </li>
             <li>
-              <Link to="/404" className="hover:underline">
+              <Link to="/Book" className="hover:underline">
                 Book Now
               </Link>
             </li>

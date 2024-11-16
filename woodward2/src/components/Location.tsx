@@ -1,7 +1,12 @@
 import greenbg from "../assets/greenbg.jpg";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { useInView } from "react-intersection-observer";
 
 function Location() {
+  const [titleRef, titleInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [paraRef, paraInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [infoRef, infoInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
   return (
     <HelmetProvider>
       <div
@@ -11,22 +16,43 @@ function Location() {
         <Helmet>
           <title>Reach Us</title>
         </Helmet>
-        <div className="w-full h-[10%] py-10 flex flex-col justify-center text-dkbrown items-center space-y-5">
+        {/* Title Section */}
+        <div
+          ref={titleRef}
+          className={`w-full h-[10%] py-10 flex flex-col justify-center text-dkbrown items-center space-y-5 transition-transform duration-700 ${
+            titleInView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
           <span className="text-4xl md:text-7xl font-MTreg">Reach us</span>
-          <div className="font-NBI w-[80%] md:w-[70%] p-5 md:p-10 text-center text-xl md:text-2xl">
-            <p>
-              Nestled amidst the pristine mountains and lush greenery of Kasol,
-              Himachal Pradesh, Woodward 2 is more than just a place to
-              stay—it's an experience designed to connect you with nature,
-              adventure, and serenity. Our boutique hotel offers a blend of
-              rustic charm and modern comforts, making it a sanctuary for
-              travelers seeking tranquility and inspiration in the heart of the
-              Himalayas.
-            </p>
-          </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-center items-center space-y-10 md:space-x-10 md:space-y-0 p-10 md:p-20">
-          <div className="flex flex-col justify-center items-center w-full md:w-[40vw] h-[70vh] p-5 md:p-10 rounded-3xl  space-y-5">
+
+        {/* Paragraph Section */}
+        <div
+          ref={paraRef}
+          className={`font-NBI w-[80%] md:w-[70%] p-5 md:p-10 text-center text-xl md:text-2xl mx-auto transition-transform duration-700 delay-200 ${
+            paraInView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          <p>
+            Nestled amidst the pristine mountains and lush greenery of Kasol,
+            Himachal Pradesh, Woodward 2 is more than just a place to
+            stay—it's an experience designed to connect you with nature,
+            adventure, and serenity. Our boutique hotel offers a blend of
+            rustic charm and modern comforts, making it a sanctuary for
+            travelers seeking tranquility and inspiration in the heart of the
+            Himalayas.
+          </p>
+        </div>
+
+        {/* Contact Section */}
+        <div
+          ref={infoRef}
+          className={`flex flex-col md:flex-row justify-center items-center space-y-10 md:space-x-10 md:space-y-0 p-10 md:p-20 transition-transform duration-700 delay-400 ${
+            infoInView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          {/* Address Box */}
+          <div className="flex flex-col justify-center items-center w-full md:w-[40vw] h-[70vh] p-5 md:p-10 rounded-3xl space-y-5">
             <div className="bg-greenish border-4 rounded-2xl w-full md:w-[80%] h-[50%] p-5 md:p-10 flex flex-col justify-center text-lg md:text-xl font-NBI text-dkkbrown">
               <p>
                 Hotel Woodward 2, near Narayan temple,
@@ -83,6 +109,8 @@ function Location() {
               </a>
             </div>
           </div>
+
+          {/* Map Section */}
           <div
             className="w-full md:w-[40vw] h-[70vh] p-5 md:p-10 bg-greenish border-4 border-darkgreen rounded-3xl filter"
             style={{
@@ -92,7 +120,7 @@ function Location() {
           >
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d845.8038053720056!2d77.31149056946418!3d32.0092833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39045d777849c18f%3A0x4def134125e0432c!2sWoodward%202%20by%204wildflower!5e0!3m2!1sen!2sin!4v1730879556172!5m2!1sen!2sin"
-              className="w-full h-full rounded-3xl "
+              className="w-full h-full rounded-3xl"
               title="Location Map"
             ></iframe>
           </div>

@@ -1,22 +1,22 @@
 import greenbg from "../assets/greenbg.jpg";
-import { Helmet,HelmetProvider } from "react-helmet-async";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function TermsAndPolicies() {
   return (
     <HelmetProvider>
       <div
-        className="w-full pb-10 min-h-screen flex flex-col justify-center items-center space-y-5 bg-ltgreen text-dkbrown bg-cover bg-center"
+        className="w-full pb-10 min-h-screen flex flex-col justify-center items-center space-y-5 bg-ltgreen text-dkbrown bg-cover bg-center "
         style={{ backgroundImage: `url(${greenbg})` }}
       >
         <Helmet>
           <title>Terms & Conditions</title>
         </Helmet>
         <div className="w-[90%] lg:w-[80%] space-y-5 lg:space-y-1 px-4">
-          <div className="w-full h-[20vh] font-MTreg flex justify-center items-center text-5xl md:text-6xl lg:text-7xl text-center">
+          <div className="w-full h-[20vh] font-MTreg flex justify-center items-center text-5xl md:text-6xl lg:text-7xl text-center motion-safe:animate-slideIn ">
             Terms and Policies
           </div>
           <span className="text-lg md:text-2xl text-dkbrown w-full lg:w-[70%] font-NBI text-center mx-auto px-4">
-            <p>
+            <p className="motion-safe:animate-slideIn">
               Please read our terms and policies carefully to ensure a smooth and
               enjoyable stay at Wildflower. We’ve outlined key guidelines for your
               convenience and safety.
@@ -27,7 +27,7 @@ function TermsAndPolicies() {
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 px-4 xl:px-20 py-10">
           {/* Reservation and Payment Policies */}
           <div className="p-4">
-            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center">
+            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center motion-safe:animate-slideIn">
               <h3 className="text-2xl md:text-3xl xl:text-4xl font-MTreg">
                 1. Reservation and Payment Policies
               </h3>
@@ -48,7 +48,7 @@ function TermsAndPolicies() {
           </div>
           {/* Cancellation and Refund Policies */}
           <div className="p-4">
-            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center">
+            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center motion-safe:animate-slideIn">
               <h3 className="text-2xl md:text-3xl xl:text-4xl font-MTreg">
                 2. Cancellation and Refund Policies
               </h3>
@@ -68,7 +68,7 @@ function TermsAndPolicies() {
           </div>
           {/* Check-In and Check-Out Policies */}
           <div className="p-4">
-            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center">
+            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center motion-safe:animate-slideIn">
               <h3 className="text-2xl md:text-3xl xl:text-4xl font-MTreg">
                 3. Check-In and Check-Out Policies
               </h3>
@@ -84,7 +84,7 @@ function TermsAndPolicies() {
           </div>
           {/* Children and Extra Bed Policies */}
           <div className="p-4">
-            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center">
+            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center motion-safe:animate-slideIn">
               <h3 className="text-2xl md:text-3xl xl:text-4xl font-MTreg">
                 4. Children and Extra Bed Policies
               </h3>
@@ -103,7 +103,7 @@ function TermsAndPolicies() {
           </div>
           {/* Pet Policy */}
           <div className="p-4">
-            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center">
+            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center motion-safe:animate-slideIn">
               <h3 className="text-2xl md:text-3xl xl:text-4xl font-MTreg">
                 5. Pet Policy
               </h3>
@@ -124,7 +124,7 @@ function TermsAndPolicies() {
           </div>
           {/* Health and Safety Policies */}
           <div className="p-4">
-            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center">
+            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center motion-safe:animate-slideIn">
               <h3 className="text-2xl md:text-3xl xl:text-4xl font-MTreg">
                 6. Health and Safety Policies
               </h3>
@@ -149,7 +149,7 @@ function TermsAndPolicies() {
           </div>
           {/* Damage and Liability Policy */}
           <div className="p-4">
-            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center">
+            <div className="border-4 bg-greenish border-darkgreen flex flex-col justify-center items-center p-8 space-y-6 rounded-3xl text-center motion-safe:animate-slideIn">
               <h3 className="text-2xl md:text-3xl xl:text-4xl font-MTreg">
                 7. Damage and Liability Policy
               </h3>

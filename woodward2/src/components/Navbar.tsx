@@ -85,7 +85,7 @@ function Navbar() {
 
         {/* Book Now Button */}
         <div className="hidden md:flex font-MTreg text-xl px-5 py-3 rounded-lg bg-dkkbrown text-ltgreen hover:bg-brownish hover:text-dkkbrown transition duration-400">
-          <Link to="">Book Now</Link>
+          <Link to="/Book">Book Now</Link>
         </div>
       </div>
 
@@ -128,8 +128,7 @@ function Navbar() {
             <Hvr text="Location & Contact" />
           </Link>
           <Link
-            to=""
-            onClick={toggleMenu}
+            to="/Book"
             className="block px-3 py-2 mt-2 rounded-lg bg-dkkbrown text-ltgreen hover:bg-brownish hover:text-dkkbrown transition duration-300 text-center"
           >
             Book Now

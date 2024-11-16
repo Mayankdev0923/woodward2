@@ -1,7 +1,7 @@
 import backgroundImage from "../assets/valley.jpg";
 import { useNavigate } from "react-router-dom";
 import greenbg from "../assets/greenbg.jpg";
-import { Helmet,HelmetProvider } from "react-helmet-async";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function RoomNSuites() {
   const navigate = useNavigate();
@@ -17,11 +17,11 @@ function RoomNSuites() {
           style={{ backgroundImage: `url(${greenbg})`, backgroundSize: "cover" }}
         >
           {/* Increased height of the header section */}
-          <div className="w-full  flex flex-col justify-center items-center space-y-5 px-4 md:px-10">
-            <span className="text-5xl md:text-7xl font-MTreg text-dkbrown">
+          <div className="w-full flex flex-col justify-center items-center space-y-5 px-4 md:px-10">
+            <span className="text-5xl md:text-7xl font-MTreg text-dkbrown motion-safe:animate-slideIn">
               Rooms & Suites
             </span>
-            <span className="text-xl md:text-2xl text-dkbrown w-[80%] md:w-[60%] font-NBI">
+            <span className="text-xl md:text-2xl text-dkbrown w-[80%] md:w-[60%] font-NBI motion-safe:animate-slideIn">
               <p>
                 At Woodward 2, our rooms are designed to be a serene retreat, each
                 blending cozy interiors with breathtaking mountain views. We offer
@@ -38,7 +38,7 @@ function RoomNSuites() {
             {[1, 2, 3, 4, 5].map((roomNumber) => (
               <div
                 key={roomNumber}
-                className="w-full md:w-[40%] h-auto  border-[10px] border-darkgreen rounded-3xl flex flex-col py-10 justify-start items-center space-y-7"
+                className="w-full md:w-[40%] h-auto border-[10px] border-darkgreen rounded-3xl flex flex-col py-10 justify-start items-center space-y-7 motion-safe:animate-slideIn"
                 style={{ backgroundImage: `url(${greenbg})`, backgroundSize: "cover" }}
               >
                 <div
@@ -63,7 +63,7 @@ function RoomNSuites() {
                         ? "Family Suite"
                         : roomNumber === 4
                         ? "Superior Room with Balcony"
-                        : "Deluxe Mountain View Room"}
+                        : "Deluxe Mountain View Room"}{" "}
                       --
                     </p>
                   </span>
@@ -84,13 +84,15 @@ function RoomNSuites() {
                 <div className="w-[80%] flex flex-col justify-between items-center space-y-5">
                   <button
                     onClick={() => navigate(`/Room${roomNumber}`)}
-                    className="w-full lg:w-full md:w-[48%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center py-2 px-2"
+                    className="w-full lg:w-full md:w-[48%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center py-2 px-2 motion-safe:animate-slideIn"
                   >
                     <div className="w-full h-full border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen text-center flex justify-center items-center text-xl md:text-2xl text-dkkbrown">
                       View Details
                     </div>
                   </button>
-                  <button className="w-full lg:w-full md:w-[48%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center py-2 px-2">
+                  <button 
+                  onClick={() => navigate(`/Book`)}
+                  className="w-full lg:w-full md:w-[48%] h-[10%] hover:bg-dkbrown hover:text-ltgreen text-dkkbrown font-MTreg bg-brownish rounded-xl flex justify-center items-center py-2 px-2 motion-safe:animate-slideIn">
                     <div className="w-full h-full border-2 border-ltgreen hover:bg-dkbrown rounded hover:text-ltgreen text-center flex justify-center items-center text-xl md:text-2xl text-dkkbrown">
                       Book Now
                     </div>
