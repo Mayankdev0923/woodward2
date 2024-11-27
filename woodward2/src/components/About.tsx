@@ -48,7 +48,7 @@ function About() {
         style={{ backgroundImage: `url(${greenbg})` }}
       >
         <Helmet>
-          <title>Home - Woodward2</title>
+          <title>Home - 4WIldflower</title>
         </Helmet>
 
         {/* Hero Section */}
@@ -56,7 +56,7 @@ function About() {
           className="flex justify-center rounded bg-cover bg-bottom filter brightness-100 text-white"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         >
-          <div className="w-full h-full backdrop-blur-xl sm:backdrop-blur-sm lg:backdrop-blur-none flex justify-center items-center">
+          <div className="w-full h-full backdrop-blur-xl sm:backdrop-blur-sm lg:backdrop-blur-none flex justify-center items-center overflow-hidden">
             <div className="absolute inset-0 bg-black opacity-40"></div>
             <div
               className="relative py-20 sm:py-40 w-full max-w-screen-lg px-5 text-center z-10 opacity-0"
@@ -81,7 +81,7 @@ function About() {
         </div>
 
         {/* Rooms & Amenities Section */}
-        <div className="p-10 sm:p-20 flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-10">
+        <div className="p-5 sm:p-20 flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-10">
           <div
             className="flex-grow rounded-3xl bg-cover bg-center w-full h-60 sm:h-80 lg:w-[45vw] lg:h-[calc(70vh)]"
             style={{ backgroundImage: `url(${img1})` }}

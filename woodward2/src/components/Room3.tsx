@@ -3,9 +3,29 @@ import { motion } from "framer-motion";
 import greenbg from "../assets/greenbg.jpg";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import getDocumentFieldValue from "./FirebaseFetch";
 
 function Room3() {
   const navigate = useNavigate();
+
+  const [prices, setPrices] = useState({
+    RoomPrice: null,
+  });
+
+  useEffect(() => {
+    const fetchRoomPrices = async () => {
+      const Price = await getDocumentFieldValue("rooms", "Family_Suite", "Price");
+
+      // Update state with fetched prices
+      setPrices({
+        RoomPrice: Price,
+      });
+    };
+
+    fetchRoomPrices();
+  }, []);
+
   return (
     <HelmetProvider>
       <>
@@ -45,6 +65,8 @@ function Room3() {
                   <b>Ideal For:</b> Families or groups.
                   <br />
                   <b>Capacity:</b> 4 guests.
+                  <br/>
+                  <b>Price :</b> ₹ {prices.RoomPrice} per night
                 </p>
                 <div className="flex justify-start px-5 md:px-10">
                   <motion.button

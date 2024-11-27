@@ -8,14 +8,14 @@ function Footer() {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {/* Footer Title */}
-      <div className="font-MTreg w-full text-center text-3xl md:text-5xl text-peachish p-5">
+      <div className="font-MTreg w-full text-center text-4xl md:text-5xl text-peachish p-5">
         WOODWARD II
       </div>
 
       {/* Footer Content */}
-      <div className="w-full flex flex-col md:flex-row justify-center items-center text-white text-center md:text-left text-lg md:text-xl font-semibold space-y-10 md:space-y-0 md:space-x-20 p-5">
+      <div className="w-full flex flex-col md:flex-row justify-center items-start md:items-center text-white text-left text-lg md:text-xl font-semibold space-y-10 md:space-y-0 md:space-x-20 md:p-5 px-10">
         {/* Address Section */}
-        <div className="flex flex-col space-y-5 w-full md:w-[30%] px-5">
+        <div className="flex flex-col space-y-5 w-[70%] md:w-[30%] px-0 md:px-5">
           <p>
             {"Hotel Woodward 2, near Narayan temple,"}
             <br />
@@ -61,8 +61,8 @@ function Footer() {
         </div>
 
         {/* Links Section */}
-        <div className="flex flex-col md:flex-row justify-center items-center md:items-start space-y-10 md:space-y-0 md:space-x-10 px-5">
-          <ul className="flex flex-col space-y-3 w-full md:w-auto text-center md:text-left border-t md:border-t-0 md:border-l-2 border-white pt-5 md:pt-0 md:px-5">
+        <div className="flex flex-col md:flex-row justify-center items-start space-y-10 md:space-y-0 md:space-x-10 px-0 md:px-5 ">
+          <ul className="flex flex-col space-y-3 w-full md:w-auto text-left border-t md:border-t-0 md:border-l-2 border-white pt-5 md:pt-0 md:px-5">
             <li>
               <Link to="/Room" className="hover:underline">
                 Rooms
@@ -89,7 +89,7 @@ function Footer() {
               </Link>
             </li>
           </ul>
-          <ul className="flex flex-col space-y-3 w-full md:w-auto text-center md:text-left border-t md:border-t-0 md:border-l-2 border-white pt-5 md:pt-0 md:px-5">
+          <ul className="flex flex-col space-y-3 w-full md:w-auto text-left border-t md:border-t-0 md:border-l-2 border-white pt-5 md:pt-0 md:px-5">
             <li>
               <Link to="/TermsAndPolicies" className="hover:underline">
                 Terms & Conditions

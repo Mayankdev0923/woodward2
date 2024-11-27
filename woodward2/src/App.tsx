@@ -18,7 +18,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TermsAndPolicies from "./components/Terms";
 import LocalAttractions from "./components/LocalAttractions";
 import HotelBookingForm from "./components/Book";
-
+import ScrollToTop from "./components/ScrollToTop";
+import ConfirmationPage from "./components/ConfirmationPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,6 +27,7 @@ function App() {
       path: "/",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           {/* <Hero /> */}
@@ -38,6 +40,7 @@ function App() {
       path: "/Room",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <RoomNSuites />
@@ -49,6 +52,7 @@ function App() {
       path: "/Gallery",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <Gallery />
@@ -60,6 +64,7 @@ function App() {
       path: "/location",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <Location />
@@ -71,6 +76,7 @@ function App() {
       path: "/Amenities",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <Amenities />
@@ -82,6 +88,7 @@ function App() {
       path: "/Room1",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <Room1 />
@@ -93,6 +100,7 @@ function App() {
       path: "/Room2",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <Room2 />
@@ -104,6 +112,7 @@ function App() {
       path: "/Room3",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <Room3 />
@@ -115,6 +124,7 @@ function App() {
       path: "/Room4",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <Room4 />
@@ -126,6 +136,7 @@ function App() {
       path: "/Room5",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <Room5 />
@@ -137,6 +148,7 @@ function App() {
       path: "/BookingPolicies",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <BookingPolicies />
@@ -148,6 +160,7 @@ function App() {
       path: "/TermsAndPolicies",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <TermsAndPolicies />
@@ -159,6 +172,7 @@ function App() {
       path: "/LocalAttractions",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <LocalAttractions />
@@ -178,9 +192,22 @@ function App() {
       path: "/Book",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Navspace />
           <HotelBookingForm />
+          <Footer />
+        </>
+      ),
+    },
+    {
+      path: "/Confirmation",
+      element: (
+        <>
+          <ScrollToTop />
+          <Navbar />
+          <Navspace />
+          <ConfirmationPage />
           <Footer />
         </>
       ),
@@ -190,7 +217,7 @@ function App() {
   return (
     <ReactLenis root options={{ duration: 1.2 }}>
       <main className="bg-gray-200 min-h-screen ">
-        <RouterProvider router={router} />
+        <RouterProvider router={router}></RouterProvider>
       </main>
     </ReactLenis>
   );

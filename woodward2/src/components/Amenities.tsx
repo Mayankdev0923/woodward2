@@ -5,14 +5,14 @@ function Amenities() {
   return (
     <HelmetProvider>
       <div
-        className="w-full min-h-screen flex flex-col justify-center items-center space-y-5 bg-ltgreen text-dkbrown bg-cover bg-center"
+        className="w-full min-h-screen flex flex-col justify-center items-center space-y-2 bg-ltgreen text-dkbrown bg-cover bg-center lg:pt-4"
         style={{ backgroundImage: `url(${greenbg})` }}
       >
         <Helmet>
           <title>Amenities</title>
         </Helmet>
         
-        <div className="w-[90%] lg:w-[80%] space-y-5 lg:space-y-1 px-4 animate-slideIn">
+        <div className="w-[90%] lg:w-[80%] space-y-0 lg:space-y-1 px-4 animate-slideIn">
           <div className="w-full h-[20vh] font-MTreg flex justify-center items-center text-5xl md:text-6xl lg:text-7xl text-center animate-slideIn">
             Services & Amenities
           </div>
@@ -78,7 +78,7 @@ function Amenities() {
         </div>
 
         {/* Special Requests and Booking Options Section */}
-        <div className="w-full max-w-screen-xl px-4 pb-8 font-MTreg space-y-10 lg:space-y-0 lg:flex-row lg:flex-wrap justify-center animate-slideIn">
+        <div className="w-full max-w-screen-xl px-4 pb-4 md:pb-8 font-MTreg space-y-10 lg:space-y-0 lg:flex-row lg:flex-wrap justify-center animate-slideIn">
           <div className="w-full px-6 animate-slideIn">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-dkkbrown text-center mb-4">
               Special Requests and Personal Touches
