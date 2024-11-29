@@ -5,13 +5,16 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from "react-router-dom";
 import getDocumentFieldValue from "./FirebaseFetch";
 
+
 // Define the Room type
 interface Room {
   roomType: string;
   guests: number;
 }
 
+
 const HotelBookingForm = () => {
+
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
@@ -117,6 +120,7 @@ const HotelBookingForm = () => {
 
   const navigate = useNavigate();
 
+
   const [_captchaVerified, setCaptchaVerified] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
   const [errors, setErrors] = useState<any>({}); // To store errors
@@ -162,6 +166,25 @@ const HotelBookingForm = () => {
     index?: number
   ) => {
     const { name, value } = e.target;
+
+    if (name === "checkInDate") {
+      // Ensure check-out date is after check-in date
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+        checkOutDate: prev.checkOutDate < value ? value : prev.checkOutDate,
+      }));
+    } else if (name === "checkOutDate") {
+      // Ensure check-out date is after check-in date
+      if (new Date(value) <= new Date(formData.checkInDate)) {
+        alert("Check-out date must be after check-in date");
+        return;
+      }
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    } else {
+      // Existing change handler logic
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
 
     if (name === "roomType") {
       const updatedRooms = [...formData.rooms];

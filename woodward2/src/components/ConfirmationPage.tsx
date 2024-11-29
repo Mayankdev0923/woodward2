@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import setDocumentFieldValue from "./FirebaseUpdate";
 import {
   PDFDownloadLink,
   Document,
@@ -23,19 +24,10 @@ interface FormData {
   email: string;
   aadhar: string;
   specialRequests?: string;
+  checkInDate: string;
+  checkOutDate: string;
   rooms: Room[];
 }
-
-// Mock roomPrices object (Ensure it's consistent with your actual implementation)
-const roomPrices: Record<string, number> = {
-  "Eco-Lodge_Room": 2000,
-  "Premium Suite": 4000,
-  "Superior Room": 3000,
-  "Family Suite": 5000,
-  "Deluxe Suite": 6000,
-};
-
-console.log("vaules fetched as ",roomPrices)
 
 // PDF styles
 const styles = StyleSheet.create({
@@ -71,6 +63,96 @@ const ConfirmationPage = () => {
     );
   }
 
+  formData.rooms.forEach((room, index) => {
+    console.log(`Index: ${index}, Item: ${room.roomType} , ${room.guests}`);
+  });
+
+  const pushBookingData = async () => {
+    try {
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "name",
+        formData.name
+      );
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "dob",
+        formData.dob
+      );
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "address",
+        formData.address
+      );
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "mobile",
+        formData.mobile
+      );
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "email",
+        formData.email
+      );
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "aadhar",
+        formData.aadhar
+      );
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "specialRequests",
+        formData.specialRequests
+      );
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "checkInDate",
+        formData.checkInDate
+      );
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "checkOutDate",
+        formData.checkOutDate
+      );
+  
+      // Process the rooms array with async/await
+      for (const [index, room] of formData.rooms.entries()) {
+        await setDocumentFieldValue(
+          "bookings",
+          `${formData.name}-${formData.checkInDate}`,
+          `room${index}`,
+          room.roomType
+        );
+        await setDocumentFieldValue(
+          "bookings",
+          `${formData.name}-${formData.checkInDate}`,
+          `room${index}-guests`,
+          room.guests
+        );
+      }
+  
+      alert("Booking data pushed successfully.");
+    } catch (error) {
+      console.error("Error pushing booking data:", error);
+    }
+  };
+
+  const finalsubmit = () => {
+    alert(
+      "Your Details would be submitted and will be subject to further verification. You may receive a phone call and email concerning your booking validation"
+    );
+    pushBookingData();
+  };
+
   return (
     <div
       className="w-full min-h-screen flex flex-col justify-center items-center bg-ltgreen text-dkbrown bg-cover bg-center pt-20 pb-20 px-5"
@@ -103,6 +185,12 @@ const ConfirmationPage = () => {
             <strong>Special Requests:</strong>{" "}
             {formData.specialRequests || "None"}
           </p>
+          <p>
+            <strong>Check In Date:</strong> {formData.checkInDate}
+          </p>
+          <p>
+            <strong>Check Out Date:</strong> {formData.checkOutDate}
+          </p>
 
           <h3 className="text-2xl font-bold">Rooms:</h3>
           {formData.rooms.map((room, index) => (
@@ -114,11 +202,13 @@ const ConfirmationPage = () => {
           ))}
 
           <h3 className="text-2xl font-bold">
-            Cost: ₹{(totalAmount/numberOfDays).toLocaleString()} {" /night"}
+            Cost: ₹{(totalAmount / numberOfDays).toLocaleString()} {" /night"}
           </h3>
         </div>
 
-        <h3 className="text-2xl font-bold">Total for {numberOfDays} day(s): ₹{totalAmount.toLocaleString()}</h3>
+        <h3 className="text-2xl font-bold">
+          Total for {numberOfDays} day(s): ₹{totalAmount.toLocaleString()}
+        </h3>
 
         <div className="space-y-4">
           <div className="flex items-center space-x-3">
@@ -129,13 +219,18 @@ const ConfirmationPage = () => {
               checked={isVerified}
               onChange={(e) => setIsVerified(e.target.checked)}
             />
-            <label htmlFor="verify" className="text-gray-800 text-sm md:text-base py-5">
+            <label
+              htmlFor="verify"
+              className="text-gray-800 text-sm md:text-base py-5"
+            >
               I verify that the above details are correct.
             </label>
           </div>
 
           <PDFDownloadLink
-            document ={<BookingReceipt formData={formData} totalAmount={totalAmount} />}
+            document={
+              <BookingReceipt formData={formData} totalAmount={totalAmount} />
+            }
             fileName="booking_receipt.pdf"
           >
             <button
@@ -147,13 +242,14 @@ const ConfirmationPage = () => {
           </PDFDownloadLink>
           <button
             disabled={!isVerified}
+            onClick={finalsubmit}
             className={`w-full px-4 py-2 rounded-lg ${
               isVerified
                 ? "bg-green-900 hover:bg-green-600 text-white"
                 : "bg-greenish text-white cursor-not-allowed"
             }`}
           >
-            Proceed to Payment
+            Proceed to Confirm My Booking
           </button>
         </div>
       </div>
@@ -162,7 +258,13 @@ const ConfirmationPage = () => {
 };
 
 // Component to generate the PDF receipt
-const BookingReceipt = ({ formData, totalAmount }: { formData: FormData; totalAmount: number }) => {
+const BookingReceipt = ({
+  formData,
+  totalAmount,
+}: {
+  formData: FormData;
+  totalAmount: number;
+}) => {
   return (
     <Document>
       <Page style={styles.page}>
@@ -176,6 +278,8 @@ const BookingReceipt = ({ formData, totalAmount }: { formData: FormData; totalAm
         <Text style={styles.text}>
           Special Requests: {formData.specialRequests || "None"}
         </Text>
+        <Text style={styles.text}>Check In Date: {formData.checkInDate}</Text>
+        <Text style={styles.text}>Check Out Date: {formData.checkOutDate}</Text>
 
         <Text style={styles.text}>Rooms:</Text>
         {formData.rooms.map((room, index) => (
@@ -184,12 +288,10 @@ const BookingReceipt = ({ formData, totalAmount }: { formData: FormData; totalAm
           </Text>
         ))}
 
-        <Text style={styles.text}>
-          Total: ₹{totalAmount.toLocaleString()}
-        </Text>
+        <Text style={styles.text}>Total: ₹{totalAmount.toLocaleString()}</Text>
       </Page>
     </Document>
   );
 };
 
-export default ConfirmationPage;  
+export default ConfirmationPage;
