@@ -13,7 +13,7 @@ function LocalAttractions() {
         </Helmet>
         <div className="w-[90%] lg:w-[80%] space-y-5 lg:space-y-1 px-4">
           <div
-            className="w-full h-[20vh] font-MTreg flex justify-center items-center text-5xl md:text-6xl lg:text-7xl text-center motion-safe:animate-slideIn"
+            className="w-full h-[20vh] font-MTreg flex justify-center items-center text-3xl md:text-6xl lg:text-7xl text-center motion-safe:animate-slideIn"
           >
             Explore the Best of Kasol: Local Attractions Near Woodward 2
           </div>

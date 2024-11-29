@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
 import Location from "./components/Location";
@@ -14,14 +15,31 @@ import Room5 from "./components/Room5";
 import Error from "./components/Error";
 import RoomNSuites from "./components/RooomNSuites";
 import { ReactLenis } from "lenis/react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import TermsAndPolicies from "./components/Terms";
 import LocalAttractions from "./components/LocalAttractions";
 import HotelBookingForm from "./components/Book";
 import ScrollToTop from "./components/ScrollToTop";
 import ConfirmationPage from "./components/ConfirmationPage";
+import AdminDashboard from "./components/adminpanel";
+import LoginPage from "./components/login";
+import { auth } from "./components/Firebase";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoggedIn(!!user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const ProtectedAdminRoute = () => {
+    return isLoggedIn ? <AdminDashboard /> : <Navigate to="/login" />;
+  };
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -30,12 +48,35 @@ function App() {
           <ScrollToTop />
           <Navbar />
           <Navspace />
-          {/* <Hero /> */}
           <About />
           <Footer />
         </>
       ),
     },
+    {
+      path: "/admin",
+      element: (
+        <>
+          <ScrollToTop />
+          <Navbar />
+          <Navspace />
+          <ProtectedAdminRoute />
+          <Footer />
+        </>
+      ),
+    },    
+    {
+      path: "/Login",
+      element: (
+        <>
+          <ScrollToTop />
+          <Navbar />
+          <Navspace />
+          <LoginPage setIsLoggedIn={setIsLoggedIn} />
+          <Footer />
+        </>
+      ),
+    }, 
     {
       path: "/Room",
       element: (

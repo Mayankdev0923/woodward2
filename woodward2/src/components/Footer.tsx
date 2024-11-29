@@ -100,6 +100,11 @@ function Footer() {
                 Bookings & Reservations
               </Link>
             </li>
+            <li>
+              <Link to="/Login" className="hover:underline">
+                Admin Login
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
