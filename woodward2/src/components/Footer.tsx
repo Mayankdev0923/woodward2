@@ -9,7 +9,7 @@ function Footer() {
     >
       {/* Footer Title */}
       <div className="font-MTreg w-full text-center text-4xl md:text-5xl text-peachish p-5">
-        WOODWARD II
+        4WILDFLOWER HOSPITAILITY
       </div>
 
       {/* Footer Content */}

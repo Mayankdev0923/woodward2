@@ -10,18 +10,18 @@ function Navbar() {
   return (
     <nav
       className={`py-5 px-5 md:px-20 fixed right-0 left-0 top-0 z-50 backdrop-blur-lg transition duration-300 ${
-        isOpen ? "bg-transparent" : "bg-greenish bg-opacity-60"
+        isOpen ? "bg-transparent bg-white bg-opacity-40" : "bg-greenish bg-opacity-60"
       }`}
     >
-      <div className="flex justify-between items-center w-full">
+      <div className="flex justify-between items-center w-full ">
         {/* Logo Section */}
         <div className="text-2xl font-MTreg text-dkkbrown px-3 py-2">
-          <Link to="/">WOODWARD II</Link>
+          <Link to="/">4WILDFLOWER</Link>
         </div>
 
         {/* Desktop Links */}
         <div className="hidden md:flex text-2xl text-dkkbrown">
-          <ul className="font-MTreg flex items-start px-5 space-x-8 lg:space-x-16">
+          <ul className="font-MTreg flex  px-5 space-x-8 lg:space-x-16 items-center">
             <li className="hover:text-dkbrown transition duration-400">
               <Link to="/">
                 <Hvr text="Home" />
@@ -34,7 +34,7 @@ function Navbar() {
             </li>
             <li className="hover:text-dkbrown transition duration-400">
               <Link to="/Room">
-                <Hvr text="Rooms & Suites" />
+                <Hvr text="Rooms" />
               </Link>
             </li>
             <li className="hover:text-dkbrown transition duration-400">
@@ -44,7 +44,7 @@ function Navbar() {
             </li>
             <li className="hover:text-dkbrown transition duration-400">
               <Link to="/location">
-                <Hvr text="Location & Contact" />
+                <Hvr text="Contact" />
               </Link>
             </li>
           </ul>
@@ -91,7 +91,7 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden px-2 pt-2 pb-3 space-y-1 bg-opacity-90 backdrop-blur-lg">
+        <div className="md:hidden px-2 pt-2 pb-3 space-y-1">
           <Link
             to="/"
             onClick={toggleMenu}

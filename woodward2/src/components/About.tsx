@@ -63,7 +63,7 @@ function About() {
               ref={addToRefs}
             >
               <h1 className="font-NBI py-10 px-5 text-3xl sm:text-5xl lg:text-7xl text-shadow-md">
-                Welcome to Woodward-2, Your Himalayan Retreat in Kasol
+                Welcome to 4Wildflower Hospitality, Your Himalayan Retreat in Kasol
               </h1>
               <p className="font-NBI p-5 text-xl sm:text-2xl">
                 Nestled amidst the pristine mountains and lush greenery of
@@ -111,10 +111,10 @@ function About() {
 
         {/* Gallery Section */}
         <div
-          className="px-5 sm:px-20 py-20 text-center opacity-0"
+          className="px-5 sm:px-20 py-10 text-center opacity-0"
           ref={addToRefs}
         >
-          <h2 className="p-5 text-3xl sm:text-4xl">Visit Our Gallery</h2>
+          <h2 className="p-5 text-3xl sm:text-4xl">----Visit Our Gallery----</h2>
           <Gallerybento />
           <div className="flex justify-center p-5 py-10" onClick={Gallery}>
             <button className="px-6 py-3 rounded text-lg sm:text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition duration-300">

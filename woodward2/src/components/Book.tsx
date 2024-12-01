@@ -344,7 +344,7 @@ const HotelBookingForm = () => {
         </Helmet>
         <div className="w-full sm:w-[90%] lg:w-[60%] bg-white p-8 lg:p-12 rounded-3xl shadow-xl space-y-6">
           <h2 className="text-3xl md:text-4xl font-MTreg text-center">
-            Hotel Booking Form
+            Hotel Booking Form - Book via form
           </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Full Name */}
@@ -394,7 +394,7 @@ const HotelBookingForm = () => {
                 htmlFor="address"
                 className="block text-lg md:text-xl font-MTreg"
               >
-                Address
+                Complete Address
               </label>
               <textarea
                 id="address"
@@ -413,7 +413,7 @@ const HotelBookingForm = () => {
                 htmlFor="mobile"
                 className="block text-lg md:text-xl font-MTreg"
               >
-                Mobile Number
+                Mobile Number (without +91 or 0)
               </label>
               <input
                 type="text"

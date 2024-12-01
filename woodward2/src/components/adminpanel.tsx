@@ -231,7 +231,7 @@ function AdminDashboard() {
           {/* Rooms Table */}
           <div className="w-full max-w-8xl">
             <h2 className="text-xl font-semibold text-center motion-safe:animate-slideIn">
-              Rooms
+              Rooms & Prices
             </h2>
             <motion.div
               className="overflow-x-auto mt-4"
@@ -306,7 +306,7 @@ function AdminDashboard() {
           {/* Bookings Table */}
           <div className="w-full max-w-8xl mt-10">
             <h2 className="text-xl font-semibold text-center motion-safe:animate-slideIn">
-              Bookings
+              Bookings & Requests
             </h2>
             <motion.div
               className="overflow-x-auto mt-4"
