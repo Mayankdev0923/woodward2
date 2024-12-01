@@ -234,12 +234,12 @@ function AdminDashboard() {
               Rooms & Prices
             </h2>
             <motion.div
-              className="overflow-x-auto mt-4"
+              className="overflow-x-auto mt-4 animate-slideIn"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <table className="min-w-full border-collapse border border-black">
+              <table className="min-w-full border-collapse border border-black ">
                 <thead>
                   <tr className="bg-dkbrown text-gray-300">
                     <th className="p-2 border border-black">Type</th>
@@ -309,7 +309,7 @@ function AdminDashboard() {
               Bookings & Requests
             </h2>
             <motion.div
-              className="overflow-x-auto mt-4"
+              className="overflow-x-auto mt-4 animate-slideIn"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
@@ -349,7 +349,7 @@ function AdminDashboard() {
                       <td className="p-2 border border-black">
                         {booking.checkOutDate}
                       </td>
-                      <td className="p-2 border border-black flex flex-col">
+                      <td className="p-2 border border-black ">
                         {Object.keys(booking)
                           .filter((key) => key.endsWith("-guests")) // Filter keys ending with "-guests"
                           .map((guestKey) => {
