@@ -56,6 +56,8 @@ const ConfirmationPage = () => {
   const numberOfDays: number = location.state?.numberOfDays || 0; // Access number of days
 
   const [isVerified, setIsVerified] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [hasbooked, setHasBooked] = useState(false);
 
   if (!formData) {
     return (
@@ -68,6 +70,7 @@ const ConfirmationPage = () => {
   });
 
   const pushBookingData = async () => {
+    setLoading(true);
     try {
       await setDocumentFieldValue(
         "bookings",
@@ -123,7 +126,19 @@ const ConfirmationPage = () => {
         "checkOutDate",
         formData.checkOutDate
       );
-  
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "totalamount",
+        totalAmount
+      );
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "verifiedstate",
+        false
+      );
+
       // Process the rooms array with async/await
       for (const [index, room] of formData.rooms.entries()) {
         await setDocumentFieldValue(
@@ -139,10 +154,13 @@ const ConfirmationPage = () => {
           room.guests
         );
       }
-  
+
       alert("Booking data pushed successfully.");
     } catch (error) {
       console.error("Error pushing booking data:", error);
+    } finally {
+      setLoading(false);
+      setHasBooked(true);
     }
   };
 
@@ -158,6 +176,11 @@ const ConfirmationPage = () => {
       className="w-full min-h-screen flex flex-col justify-center items-center bg-ltgreen text-dkbrown bg-cover bg-center pt-20 pb-20 px-5"
       style={{ backgroundImage: `url(${greenbg})` }}
     >
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+          <div className="loader border-t-4 border-white w-16 h-16 rounded-full animate-spin"></div>
+        </div>
+      )}
       <div className="w-full sm:w-[90%] lg:w-[60%] bg-white p-8 lg:p-12 rounded-3xl shadow-xl space-y-6">
         <h2 className="text-3xl md:text-4xl font-bold text-center">
           Booking Confirmation
@@ -241,15 +264,17 @@ const ConfirmationPage = () => {
             </button>
           </PDFDownloadLink>
           <button
-            disabled={!isVerified}
+            disabled={!isVerified || hasbooked}
             onClick={finalsubmit}
             className={`w-full px-4 py-2 rounded-lg ${
-              isVerified
+              !hasbooked?
+              (isVerified
                 ? "bg-green-900 hover:bg-green-600 text-white"
-                : "bg-greenish text-white cursor-not-allowed"
+                : "bg-greenish text-white cursor-not-allowed")
+                : "bg-greenish text-dkbrown cursor-not-allowed"
             }`}
           >
-            Proceed to Confirm My Booking
+            {!hasbooked?"Proceed to Confirm My Booking":"Booking Already Completed"}
           </button>
         </div>
       </div>

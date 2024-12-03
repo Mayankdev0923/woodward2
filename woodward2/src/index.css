@@ -17,3 +17,18 @@
   font-weight: normal;
   font-style: normal;
 }
+
+.loader {
+  border: 4px solid transparent;
+  border-radius: 50%;
+  border-top-color: white;
+  width: 4rem;
+  height: 4rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

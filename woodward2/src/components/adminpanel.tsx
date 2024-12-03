@@ -4,11 +4,16 @@ import greenbg from "../assets/greenbg.jpg";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import getDocumentFieldValue from "./FirebaseFetch";
 import setDocumentFieldValue from "./FirebaseUpdate";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore";
 import { firebaseConfig } from "./Firebase";
 import { initializeApp } from "firebase/app";
 
-// Define a type for the booking data structure
 type Booking = {
   documentId: string;
   name: string;
@@ -20,16 +25,17 @@ type Booking = {
   specialRequests: string;
   checkInDate: string;
   checkOutDate: string;
-  [key: string]: string | number; // For dynamic room fields (e.g., room0, room1)
+  verifiedstate: boolean; // explicitly declare as boolean
+  [key: string]: string | number | boolean; // allow dynamic fields with boolean values
 };
 
-// Define the type for the return value of `fetchAllBookingData`
-type BookingData = Booking[];
+type BookingData = Booking[]; // Define the type for booking data array
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 function AdminDashboard() {
+  const [loading, setLoading] = useState(false);
   const [roomPrices, setRoomPrices] = useState<{ [key: string]: number }>({});
   const [roomAvailability, setRoomAvailability] = useState<{
     [key: string]: number;
@@ -49,10 +55,7 @@ function AdminDashboard() {
         const availability: { [key: string]: number } = {};
         const occupancy: { [key: string]: number } = {};
 
-        const roomTypes = [
-          "Executive_Room",
-          "Superior_Room",
-        ];
+        const roomTypes = ["Executive_Room", "Superior_Room"];
 
         for (const roomType of roomTypes) {
           const price = await getDocumentFieldValue("rooms", roomType, "Price");
@@ -103,6 +106,7 @@ function AdminDashboard() {
             specialRequests: "",
             checkInDate: "",
             checkOutDate: "",
+            verifiedstate: false, // Initialize boolean properly
           };
 
           // Fetch fields in the same order
@@ -151,6 +155,16 @@ function AdminDashboard() {
             documentId,
             "checkOutDate"
           );
+          documentData["totalamount"] = await getDocumentFieldValue(
+            "bookings",
+            documentId,
+            "totalamount"
+          );
+          documentData["verifiedstate"] = await getDocumentFieldValue(
+            "bookings",
+            documentId,
+            "verifiedstate"
+          );
 
           // Fetch room data dynamically
           let index = 0;
@@ -187,7 +201,224 @@ function AdminDashboard() {
     fetchAllBookingData();
   }, []);
 
-  // Handle room price change
+  const handleVerify = async (booking: Booking) => {
+    setLoading(true);
+    const roomUpdates: {
+      [key: string]: { available: number; occupied: number };
+    } = {};
+
+    let i = 0;
+    while (booking[`room${i}`]) {
+      const roomType = booking[`room${i}`] as string;
+
+      // Fetch current availability and occupancy from the state
+      const currentAvailable = roomAvailability[roomType] || 0;
+      const currentOccupied = roomOccupancy[roomType] || 0;
+
+      if(currentAvailable == 0){
+        alert("Not enough rooms to assign");
+        setLoading(false)
+        return
+      }
+
+      // Update local state (decrease available, increase occupied)
+      roomUpdates[roomType] = {
+        available: currentAvailable - 1, // Decrease available
+        occupied: currentOccupied + 1, // Increase occupied
+      };
+
+      i++;
+    }
+
+    // Update the local state first to reflect the changes on the UI
+    setRoomAvailability((prev) => ({
+      ...prev,
+      ...Object.fromEntries(
+        Object.entries(roomUpdates).map(([roomType, { available }]) => [
+          roomType,
+          available,
+        ])
+      ),
+    }));
+
+    setRoomOccupancy((prev) => ({
+      ...prev,
+      ...Object.fromEntries(
+        Object.entries(roomUpdates).map(([roomType, { occupied }]) => [
+          roomType,
+          occupied,
+        ])
+      ),
+    }));
+
+    // Now, update Firebase with the new room availability and occupancy
+    for (const roomType in roomUpdates) {
+      const { available, occupied } = roomUpdates[roomType];
+      await setDocumentFieldValue("rooms", roomType, "available", available);
+      await setDocumentFieldValue("rooms", roomType, "occupied", occupied);
+    }
+
+    // Update booking verification state in Firebase
+    await setDocumentFieldValue(
+      "bookings",
+      booking.documentId,
+      "verifiedstate",
+      true
+    );
+
+    // Update the local state for bookings to reflect the verification
+    setAllBookings((prevBookings) =>
+      prevBookings.map((b) =>
+        b.documentId === booking.documentId
+          ? { ...b, verifiedstate: true } // Update the verified state in local state
+          : b
+      )
+    );
+
+    alert(`Booking for ${booking.name} verified.`);
+    setLoading(false);
+  };
+
+  const handleDeleteBooking = async (booking: Booking) => {
+    setLoading(true);
+
+    // First, vacate the rooms associated with the booking
+    const roomUpdates: {
+      [key: string]: { available: number; occupied: number };
+    } = {};
+
+    let i = 0;
+    while (booking[`room${i}`]) {
+      const roomType = booking[`room${i}`] as string;
+
+      // Fetch current availability and occupancy from the state
+      const currentAvailable = roomAvailability[roomType] || 0;
+      const currentOccupied = roomOccupancy[roomType] || 0;
+
+
+      // Update local state (increase available, decrease occupied)
+      roomUpdates[roomType] = {
+        available: currentAvailable + 1, // Increase available
+        occupied: currentOccupied - 1, // Decrease occupied
+      };
+
+      i++;
+    }
+
+    // Update the local state first to reflect the changes on the UI
+    setRoomAvailability((prev) => ({
+      ...prev,
+      ...Object.fromEntries(
+        Object.entries(roomUpdates).map(([roomType, { available }]) => [
+          roomType,
+          available,
+        ])
+      ),
+    }));
+
+    setRoomOccupancy((prev) => ({
+      ...prev,
+      ...Object.fromEntries(
+        Object.entries(roomUpdates).map(([roomType, { occupied }]) => [
+          roomType,
+          occupied,
+        ])
+      ),
+    }));
+
+    // Now, update Firebase with the new room availability and occupancy
+    for (const roomType in roomUpdates) {
+      const { available, occupied } = roomUpdates[roomType];
+      await setDocumentFieldValue("rooms", roomType, "available", available);
+      await setDocumentFieldValue("rooms", roomType, "occupied", occupied);
+    }
+
+    // Delete the booking document after vacating the rooms
+    await deleteDoc(doc(db, "bookings", booking.documentId));
+
+    // Update the local state for bookings to reflect the deletion
+    setAllBookings(
+      (prevBookings) =>
+        prevBookings.filter((b) => b.documentId !== booking.documentId) // Remove the deleted booking
+    );
+
+    alert(`Booking for ${booking.name} has been deleted and rooms vacated.`);
+    setLoading(false);
+  };
+
+  const handleVacate = async (booking: Booking) => {
+    setLoading(true);
+
+    const roomUpdates: {
+      [key: string]: { available: number; occupied: number };
+    } = {};
+
+    let i = 0;
+    while (booking[`room${i}`]) {
+      const roomType = booking[`room${i}`] as string;
+
+      // Fetch current availability and occupancy from the state
+      const currentAvailable = roomAvailability[roomType] || 0;
+      const currentOccupied = roomOccupancy[roomType] || 0;
+
+      // Update local state (increase available, decrease occupied)
+      roomUpdates[roomType] = {
+        available: currentAvailable + 1, // Increase available
+        occupied: currentOccupied - 1, // Decrease occupied
+      };
+
+      i++;
+    }
+
+    // Update the local state first to reflect the changes on the UI
+    setRoomAvailability((prev) => ({
+      ...prev,
+      ...Object.fromEntries(
+        Object.entries(roomUpdates).map(([roomType, { available }]) => [
+          roomType,
+          available,
+        ])
+      ),
+    }));
+
+    setRoomOccupancy((prev) => ({
+      ...prev,
+      ...Object.fromEntries(
+        Object.entries(roomUpdates).map(([roomType, { occupied }]) => [
+          roomType,
+          occupied,
+        ])
+      ),
+    }));
+
+    // Now, update Firebase with the new room availability and occupancy
+    for (const roomType in roomUpdates) {
+      const { available, occupied } = roomUpdates[roomType];
+      await setDocumentFieldValue("rooms", roomType, "available", available);
+      await setDocumentFieldValue("rooms", roomType, "occupied", occupied);
+    }
+
+    // Mark the booking as not verified (vacated) in Firebase
+    await setDocumentFieldValue(
+      "bookings",
+      booking.documentId,
+      "verifiedstate",
+      false
+    );
+
+    // Update the local state for bookings to reflect the vacating action
+    setAllBookings((prevBookings) =>
+      prevBookings.map((b) =>
+        b.documentId === booking.documentId
+          ? { ...b, verifiedstate: false } // Update the verified state in local state
+          : b
+      )
+    );
+
+    alert(`Room for ${booking.name} vacated.`);
+    setLoading(false);
+  };
+
   const handlePriceChange = (roomType: string, newPrice: number) => {
     setUpdatedPrices((prevPrices) => ({
       ...prevPrices,
@@ -219,6 +450,11 @@ function AdminDashboard() {
           <title>Admin Dashboard</title>
         </Helmet>
         <div className="flex flex-col items-center space-y-10 p-10 pb-40 md:pt-20 pt-40 w-full h-full">
+          {loading && (
+            <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+              <div className="loader border-t-4 border-white w-16 h-16 rounded-full animate-spin"></div>
+            </div>
+          )}
           <div className="flex justify-center items-center text-3xl md:text-5xl rounded-3xl px-4 py-4 border-2 border-dkkbrown w-full max-w-5xl motion-safe:animate-slideIn">
             <div className="border-2 w-full text-center rounded-2xl border-dkkbrown px-4 py-5 font-MTreg">
               -- Admin Dashboard --
@@ -321,12 +557,20 @@ function AdminDashboard() {
                     <th className="p-2 border border-black">Email</th>
                     <th className="p-2 border border-black">Check-In</th>
                     <th className="p-2 border border-black">Check-Out</th>
+                    <th className="p-2 border border-black">
+                      Total Billing Amount
+                    </th>
                     <th className="p-2 border border-black">Rooms</th>
+                    <th className="p-2 border border-black">Actions</th>{" "}
+                    {/* Add new column */}
                   </tr>
                 </thead>
                 <tbody>
                   {allBookings.map((booking) => (
-                    <tr key={booking.documentId} className="hover:bg-gray-50 text-center">
+                    <tr
+                      key={booking.documentId}
+                      className="hover:bg-gray-50 text-center"
+                    >
                       <td className="p-2 border border-black">
                         {booking.name}
                       </td>
@@ -346,17 +590,16 @@ function AdminDashboard() {
                       <td className="p-2 border border-black">
                         {booking.checkOutDate}
                       </td>
-                      <td className="p-2 border border-black ">
+                      <td className="p-2 border border-black">
+                        {booking.totalamount}
+                      </td>
+                      <td className="p-2 border border-black">
                         {Object.keys(booking)
                           .filter((key) => key.endsWith("-guests")) // Filter keys ending with "-guests"
                           .map((guestKey) => {
-                            // The room index will be derived by removing the '-guests' part
-                            const roomKey = guestKey.replace("-guests", "");
-                            const roomType = booking[roomKey]; // Get room type for the current room
-
-                            // Get the guest count for the current room
-                            const guestCount = booking[guestKey];
-
+                            const roomKey = guestKey.replace("-guests", ""); // Derive room index
+                            const roomType = booking[roomKey]; // Room type
+                            const guestCount = booking[guestKey]; // Guests in room
                             return (
                               <div
                                 key={guestKey}
@@ -367,6 +610,30 @@ function AdminDashboard() {
                               </div>
                             );
                           })}
+                      </td>
+                      <td className="p-2 border border-black space-x-2">
+                        <button
+                          onClick={() => handleDeleteBooking(booking)}
+                          className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
+                        >
+                          Delete
+                        </button>
+                        {!booking.verifiedstate && (
+                          <button
+                            onClick={() => handleVerify(booking)}
+                            className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
+                          >
+                            Verify Booking
+                          </button>
+                        )}
+                        {booking.verifiedstate && (
+                          <button
+                            onClick={() => handleVacate(booking)}
+                            className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600"
+                          >
+                            Vacate Room
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
