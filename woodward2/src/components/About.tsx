@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Room1 from "../assets/landingpage/DSC02935.jpg"
 import BookingBanner from "../assets/landingpage/DSC02961.jpg"
+import templeinmg from "../assets/galleryimages/property/temple.jpg"
 
 function About() {
   const navigate = useNavigate();
   const BookNow = () => navigate("/Book");
   const Room = () => navigate("/Room");
+  const LA = () => navigate("/LocalAttractions");
   const Gallery = () => navigate("/Gallery");
   const Bookings = () => navigate("/BookingPolicies");
 
@@ -122,6 +124,33 @@ function About() {
             <button className="px-6 py-3 rounded text-lg sm:text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition duration-300">
               -- View More --
             </button>
+          </div>
+        </div>
+
+        {/*Local Attractions*/}
+        <div className="p-5 sm:p-20 flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-10">
+          <div
+            className="flex-grow rounded-3xl bg-cover bg-center w-full h-60 sm:h-80 lg:w-[45vw] lg:h-[calc(70vh)]"
+            style={{ backgroundImage: `url(${templeinmg})` }}
+            ref={addToRefs}
+          ></div>
+          <div
+            className="flex-grow w-full lg:w-[45vw] flex flex-col justify-center px-5 sm:px-10 opacity-0"
+            ref={addToRefs}
+          >
+            <h2 className="text-left text-3xl sm:text-4xl lg:text-5xl">
+              Local Attractions:
+              <br />
+              Attractions near woodward 2
+            </h2>
+            <p className="pt-5 text-left text-lg sm:text-xl lg:text-2xl">
+              Woodward 2 is located near various visiting spots. Like Bhagwan Narayana Temple Located just 10 metres away from Woodward2.
+            </p>
+            <div className="flex justify-start mt-5" onClick={LA}>
+              <button className="py-2 px-5 rounded text-lg sm:text-xl text-dkkbrown outline outline-2 outline-dkkbrown hover:text-white hover:bg-dkkbrown transition duration-300">
+                -- Know More --
+              </button>
+            </div>
           </div>
         </div>
 
