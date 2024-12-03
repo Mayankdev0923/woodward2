@@ -51,7 +51,7 @@ function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex font-MTreg items-center">
           <button
             onClick={toggleMenu}
             className="text-dkkbrown focus:outline-none"
@@ -91,7 +91,7 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden px-2 pt-2 pb-3 space-y-1">
+        <div className="md:hidden px-2 pt-2 pb-3 space-y-1 font-MTreg">
           <Link
             to="/"
             onClick={toggleMenu}
