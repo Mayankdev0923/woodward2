@@ -1,43 +1,105 @@
 import greenbg from "../assets/greenbg.jpg";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 
+// Import all images statically
+// Rooms
+import DSC02941 from "../assets/galleryimages/rooms/DSC02941.jpg";
+import DSC02942 from "../assets/galleryimages/rooms/DSC02942.jpg";
+import DSC02944 from "../assets/galleryimages/rooms/DSC02944.jpg";
+import DSC02945 from "../assets/galleryimages/rooms/DSC02945.jpg";
+import DSC02946 from "../assets/galleryimages/rooms/DSC02946.jpg";
+import DSC02914 from "../assets/galleryimages/rooms/DSC02914.jpg";
+import DSC02916 from "../assets/galleryimages/rooms/DSC02916.jpg";
+import DSC02917 from "../assets/galleryimages/rooms/DSC02917.jpg";
+import DSC02918 from "../assets/galleryimages/rooms/DSC02918.jpg";
+import DSC02920 from "../assets/galleryimages/rooms/DSC02920.jpg";
+import DSC02936 from "../assets/galleryimages/rooms/DSC02936.jpg";
+import DSC02937 from "../assets/galleryimages/rooms/DSC02937.jpg";
+import DSC02939 from "../assets/galleryimages/rooms/DSC02939.jpg";
+import DSC02940 from "../assets/galleryimages/rooms/DSC02940.jpg";
+
+// Restaurant
+import DSC02929 from "../assets/galleryimages/restraunt/DSC02929.jpg";
+import DSC02932 from "../assets/galleryimages/restraunt/DSC02932.jpg";
+import DSC02928 from "../assets/galleryimages/restraunt/DSC02928.jpg";
+
+// Reception
+import DSC02949 from "../assets/galleryimages/reception/DSC02949.jpg";
+import DSC02950 from "../assets/galleryimages/reception/DSC02950.jpg";
+import IMG_9757 from "../assets/galleryimages/reception/IMG_9757.jpg";
+import DSC02948 from "../assets/galleryimages/reception/DSC02948.jpg";
+
+// Property
+import IMG_9782 from "../assets/galleryimages/property/IMG_9782.jpg";
+import IMG_9784 from "../assets/galleryimages/property/IMG_9784.jpg";
+import IMG_9785 from "../assets/galleryimages/property/IMG_9785.jpg";
+import IMG_9787 from "../assets/galleryimages/property/IMG_9787.jpg";
+import IMG_9790 from "../assets/galleryimages/property/IMG_9790.jpg";
+import IMG_9791 from "../assets/galleryimages/property/IMG_9791.jpg";
+import IMG_9793 from "../assets/galleryimages/property/IMG_9793.jpg";
+import IMG_9796 from "../assets/galleryimages/property/IMG_9796.jpg";
+import IMG_9800 from "../assets/galleryimages/property/IMG_9800.jpg";
+import DSC02955 from "../assets/galleryimages/property/DSC02955.jpg";
+import DSC02960 from "../assets/galleryimages/property/DSC02960.jpg";
+import DSC02962 from "../assets/galleryimages/property/DSC02962.jpg";
+import DSC02965 from "../assets/galleryimages/property/DSC02965.jpg";
+import DSC02967 from "../assets/galleryimages/property/DSC02967.jpg";
+import DSC02969 from "../assets/galleryimages/property/DSC02969.jpg";
+
+// More property images...
+import IMG_9731 from "../assets/galleryimages/property/IMG_9731.jpg";
+import IMG_9732 from "../assets/galleryimages/property/IMG_9732.jpg";
+import IMG_9733 from "../assets/galleryimages/property/IMG_9733.jpg";
+import IMG_9734 from "../assets/galleryimages/property/IMG_9734.jpg";
+import IMG_9738 from "../assets/galleryimages/property/IMG_9738.jpg";
+import IMG_9739 from "../assets/galleryimages/property/IMG_9739.jpg";
+import IMG_9741 from "../assets/galleryimages/property/IMG_9741.jpg";
+import IMG_9746a from "../assets/galleryimages/property/IMG_9746a.jpg";
+import IMG_9750 from "../assets/galleryimages/property/IMG_9750.jpg";
+import IMG_9751 from "../assets/galleryimages/property/IMG_9751.jpg";
+import IMG_9752 from "../assets/galleryimages/property/IMG_9752.jpg";
+import IMG_9758 from "../assets/galleryimages/property/IMG_9758.jpg";
+import IMG_9760 from "../assets/galleryimages/property/IMG_9760.jpg";
+import IMG_9761 from "../assets/galleryimages/property/IMG_9761.jpg";
+import IMG_9763 from "../assets/galleryimages/property/IMG_9763.jpg";
+import IMG_9764 from "../assets/galleryimages/property/IMG_9764.jpg";
+import IMG_9765 from "../assets/galleryimages/property/IMG_9765.jpg";
+import IMG_9766 from "../assets/galleryimages/property/IMG_9766.jpg";
+import IMG_9767 from "../assets/galleryimages/property/IMG_9767.jpg";
+import IMG_9768 from "../assets/galleryimages/property/IMG_9768.jpg";
+import IMG_9772 from "../assets/galleryimages/property/IMG_9772.jpg";
+import IMG_9776 from "../assets/galleryimages/property/IMG_9776.jpg";
+import IMG_9778 from "../assets/galleryimages/property/IMG_9778.jpg";
+import IMG_9780 from "../assets/galleryimages/property/IMG_9780.jpg";
+import IMG_9781 from "../assets/galleryimages/property/IMG_9781.jpg";
+
+
+// Consolidated array of imported images
 const imageSources = [
-  "https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(70).webp",
-  "https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(72).webp",
-  "https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp",
-  "https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(74).webp",
-  "https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(75).webp",
-  "https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(77).webp",
+  IMG_9739, IMG_9741, IMG_9746a, IMG_9750, IMG_9751, 
+  IMG_9752, IMG_9758, IMG_9760, IMG_9761, IMG_9763, 
+  IMG_9764, IMG_9765, IMG_9766, IMG_9767, IMG_9768, 
+  IMG_9772, IMG_9776, IMG_9778, IMG_9780, IMG_9781,
+  DSC02949, DSC02950, IMG_9757, DSC02948,
+  IMG_9782, IMG_9784, IMG_9785, IMG_9787, IMG_9790, 
+  IMG_9791, IMG_9793, IMG_9796, IMG_9800, DSC02955, 
+  DSC02960, DSC02962, DSC02965, DSC02967, DSC02969,
+  IMG_9731, IMG_9732, IMG_9733, IMG_9734, IMG_9738, 
+  DSC02941, DSC02942, DSC02944, DSC02945, DSC02946, 
+  DSC02914, DSC02916, DSC02917, DSC02918, DSC02920, 
+  DSC02936, DSC02937, DSC02939, DSC02940,
+  DSC02929, DSC02932, DSC02928
+
 ];
 
 function Gallery() {
-  const [inView, setInView] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Detect screen size for disabling modal on mobile
   const isMobile = useMediaQuery({ maxWidth: 768 });
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        setInView(entry.isIntersecting);
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
-    };
-  }, []);
 
   const handleNext = () => {
     if (selectedImage !== null && selectedImage < imageSources.length - 1) {
@@ -69,12 +131,10 @@ function Gallery() {
   const renderImage = (src: string, index: number) => (
     <div
       key={index}
-      className={`w-full md:w-1/2 p-1 md:p-2 transition-transform duration-700 delay-${
-        index * 200
-      } ${inView ? "scale-100 opacity-100" : "scale-90 opacity-0"}`}
+      className="w-full md:w-1/2 p-1 md:p-2"
     >
       <img
-        alt="gallery"
+        alt={`Gallery image ${index + 1}`}
         className="block h-full w-full rounded-lg object-cover object-center cursor-pointer"
         src={src}
         onClick={() => !isMobile && setSelectedImage(index)} // Disable expanding view on mobile
@@ -87,29 +147,20 @@ function Gallery() {
       <div
         className="bg-ltgreen"
         style={{ backgroundImage: `url(${greenbg})` }}
-        ref={sectionRef}
       >
         <Helmet>
           <title>Gallery</title>
         </Helmet>
 
         {/* Header */}
-        <div
-          className={`w-full h-[20vh] p-10 flex justify-center items-center text-4xl md:text-7xl font-MTreg text-dkbrown transition-transform duration-700 ${
-            inView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
+        <div className="w-full h-[20vh] p-10 flex justify-center items-center text-4xl md:text-7xl font-MTreg text-dkbrown animate-slideIn">
           Our Gallery
         </div>
 
         {/* Description */}
-        <div
-          className={`text-xl md:text-2xl text-dkbrown w-[80%] md:w-[70%] mx-auto text-center font-NBI px-4 transition-transform duration-700 delay-200 ${
-            inView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
+        <div className="text-xl md:text-2xl text-dkbrown w-[80%] md:w-[70%] mx-auto text-center font-NBI px-4 animate-slideIn">
           <p>
-            Our hotel’s gallery showcases the charm and elegance that await you,
+            Our hotel's gallery showcases the charm and elegance that await you,
             offering a glimpse into our beautifully designed spaces and
             top-notch amenities.
           </p>
@@ -131,7 +182,7 @@ function Gallery() {
             >
               <img
                 src={imageSources[selectedImage]}
-                alt="Expanded"
+                alt={`Expanded image ${selectedImage + 1}`}
                 className="rounded-lg h-full w-full object-contain"
               />
               <div className="flex justify-between mt-4">

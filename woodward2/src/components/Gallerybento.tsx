@@ -1,5 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import Galleryimage from "../assets/Heroimg.jpg";
+import Image1 from "../assets/bentogrid/DSC02920.jpg";
+import Image2 from "../assets/bentogrid/DSC02960.jpg";
+import Image3 from "../assets/bentogrid/DSC02970.jpg";
+import Image4 from "../assets/bentogrid/DSC02922.jpg";
 
 function Gallerybento() {
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
@@ -37,7 +41,17 @@ function Gallerybento() {
         className={`bg-cover bg-center relative flex h-full flex-col overflow-hidden min-h-[20rem] rounded-[calc(theme(borderRadius.lg)+1px)] ${
           hoveredImage === imageId ? "scale-110 z-10" : ""
         } transition-transform duration-300 cursor-pointer`}
-        style={{ backgroundImage: `url(${Galleryimage})` }}
+        style={{
+          backgroundImage: `url(${
+            imageId == "image1"
+              ? Image1
+              : imageId == "image2"
+              ? Image2
+              : imageId == "image3"
+              ? Image3
+              : Image4
+          })`,
+        }}
       ></div>
       <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5"></div>
     </div>
@@ -48,7 +62,10 @@ function Gallerybento() {
       <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
         {renderImage("image1", "lg:row-span-2")}
         {renderImage("image2", "max-lg:row-start-1")}
-        {renderImage("image3", "max-lg:row-start-3 lg:col-start-2 lg:row-start-2")}
+        {renderImage(
+          "image3",
+          "max-lg:row-start-3 lg:col-start-2 lg:row-start-2"
+        )}
         {renderImage("image4", "lg:row-span-2")}
       </div>
 
@@ -59,7 +76,14 @@ function Gallerybento() {
             className="bg-white p-4 rounded-lg shadow-lg max-w-4xl"
           >
             <img
-              src={Galleryimage}
+              src={
+                hoveredImage == "image1"
+                  ? Image1
+                  : hoveredImage == "image2"
+                  ? Image2
+                  : hoveredImage == "image3"
+                  ? Image3
+                  : Image4}
               alt="Expanded"
               className="rounded-lg max-h-[90vh] max-w-full"
             />

@@ -5,6 +5,9 @@ import backgroundImage from "../assets/river.jpg";
 import greenbg from "../assets/greenbg.jpg";
 import { useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import Room1 from "../assets/landingpage/DSC02935.jpg"
+import Room2 from "../assets/landingpage/DSC02917.jpg"
+import BookingBanner from "../assets/landingpage/DSC02961.jpg"
 
 function About() {
   const navigate = useNavigate();
@@ -84,7 +87,7 @@ function About() {
         <div className="p-5 sm:p-20 flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-10">
           <div
             className="flex-grow rounded-3xl bg-cover bg-center w-full h-60 sm:h-80 lg:w-[45vw] lg:h-[calc(70vh)]"
-            style={{ backgroundImage: `url(${img1})` }}
+            style={{ backgroundImage: `url(${Room1})` }}
           ></div>
           <div
             className="flex-grow w-full lg:w-[45vw] flex flex-col justify-center px-5 sm:px-10 opacity-0"
@@ -127,7 +130,7 @@ function About() {
         <div className="px-5 sm:px-20 py-10 sm:py-20 flex flex-col lg:flex-row-reverse items-center space-y-10 lg:space-y-0 lg:space-x-10">
           <div
             className="flex-grow rounded-3xl bg-cover bg-center w-full h-60 sm:h-80 lg:w-[45vw] lg:h-[calc(70vh)]"
-            style={{ backgroundImage: `url(${img1})` }}
+            style={{ backgroundImage: `url(${BookingBanner})` }}
           ></div>
           <div
             className="flex-grow w-full lg:w-[45vw] flex flex-col justify-center px-5 sm:px-10 opacity-0"
