@@ -1,43 +1,41 @@
-import backgroundImage from "../assets/valley.jpg";
 import { useNavigate } from "react-router-dom";
 import greenbg from "../assets/greenbg.jpg";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import getDocumentFieldValue from "./FirebaseFetch";
 import { useEffect, useState } from "react";
+import superiorimage from "../assets/galleryimages/rooms/DSC02917.jpg";
+import executiveimage from "../assets/galleryimages/rooms/DSC02936.jpg";
 
 function RoomNSuites() {
   const navigate = useNavigate();
   // State to store prices
   const [prices, setPrices] = useState({
-    EcoLodge: null,
+    Executive: null,
     Superior: null,
-    Deluxe: null,
-    Premium: null,
-    Family: null,
   });
 
   useEffect(() => {
     const fetchRoomPrices = async () => {
-      const EcoLodge_Price = await getDocumentFieldValue("rooms", "Eco-Lodge_Room", "Price");
-      const Superior_Price = await getDocumentFieldValue("rooms", "Superior_Suite", "Price");
-      const Deluxe_Price = await getDocumentFieldValue("rooms", "Deluxe_Room", "Price");
-      const Premium_Price = await getDocumentFieldValue("rooms", "Premium_Suite", "Price");
-      const Family_Price = await getDocumentFieldValue("rooms", "Family_Suite", "Price");
+      const Executive_Price = await getDocumentFieldValue(
+        "rooms",
+        "Executive_Room",
+        "Price"
+      );
+      const Superior_Price = await getDocumentFieldValue(
+        "rooms",
+        "Superior_Room",
+        "Price"
+      );
 
       // Update state with fetched prices
       setPrices({
-        EcoLodge: EcoLodge_Price,
+        Executive: Executive_Price,
         Superior: Superior_Price,
-        Deluxe: Deluxe_Price,
-        Premium: Premium_Price,
-        Family: Family_Price,
       });
     };
 
     fetchRoomPrices();
   }, []);
-
-  
 
   return (
     <HelmetProvider>
@@ -70,7 +68,7 @@ function RoomNSuites() {
           </div>
           {/* Added gap and ensured proper alignment for the room blocks */}
           <div className="w-full flex flex-wrap justify-center items-center gap-10 px-10">
-            {[1, 2, 3, 4, 5].map((roomNumber) => (
+            {[1, 2].map((roomNumber) => (
               <div
                 key={roomNumber}
                 className=" max-w-[90%] md:w-[40%] h-auto border-[5px] border-brownish rounded-[3rem] md:rounded-[5rem] flex flex-col py-20 px-5 justify-start items-center space-y-7 motion-safe:animate-slideIn"
@@ -82,7 +80,9 @@ function RoomNSuites() {
                 <div
                   className="w-[80%] lg:h-[400px] bg-brownish rounded-2xl" // Set fixed height to ensure visibility
                   style={{
-                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundImage: `url(${
+                      roomNumber == 1 ? superiorimage : executiveimage
+                    })`,
                     backgroundSize: "cover", // Ensures the image fully covers the div
                     backgroundPosition: "center", // Keeps the image centered
                     backgroundRepeat: "no-repeat", // Prevents tiling of the image
@@ -92,44 +92,22 @@ function RoomNSuites() {
                 <div className="w-[80%] h-[20%] space-y-3 flex flex-col justify-center items-center">
                   <span>
                     <p className="text-3xl font-MTreg">
-                      --{" "}
-                      {roomNumber === 1
-                        ? "Eco Room"
-                        : roomNumber === 2
-                        ? "Premium Suite"
-                        : roomNumber === 3
-                        ? "Family Suite"
-                        : roomNumber === 4
-                        ? "Superior Room with Balcony"
-                        : "Deluxe Mountain View Room"}{" "}
-                      --
+                      -- {roomNumber === 1 ? "Executive" : "Superior"} --
                     </p>
                   </span>
                   <span>
                     <p>
                       {roomNumber === 1
-                        ? "Our Eco-Lodge Room provides an eco-friendly stay."
-                        : roomNumber === 2
-                        ? "The Premium Suite offers luxurious space."
-                        : roomNumber === 3
-                        ? "The Family Suite is ideal for families."
-                        : roomNumber === 4
-                        ? "The Superior Room provides an expansive living space."
-                        : "It is perfect for couples or solo travelers."}
+                        ? "Our Executive Room provides an eco-friendly stay near to the garden."
+                        : "The Superior Room offers luxurious space with greart view."}
                     </p>
                   </span>
                   <span>
                     <p className=" text-4xl font-NBI text-dkbrown font-bold">
-                    {"₹ "}
-                    {roomNumber === 1
-                        ? `${prices.EcoLodge}`
-                        : roomNumber === 2
-                        ? `${prices.Premium}`
-                        : roomNumber === 3
-                        ? `${prices.Family}`
-                        : roomNumber === 4
-                        ? `${prices.Superior}`
-                        : `${prices.Deluxe}`}
+                      {"₹ "}
+                      {roomNumber === 1
+                        ? `${prices.Executive}`
+                        : `${prices.Superior}`}
                       {" / night"}
                     </p>
                   </span>

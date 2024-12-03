@@ -9,9 +9,6 @@ import Gallery from "./components/Gallery";
 import Navspace from "./components/Navspace";
 import Room1 from "./components/Room1";
 import Room2 from "./components/Room2";
-import Room3 from "./components/Room3";
-import Room4 from "./components/Room4";
-import Room5 from "./components/Room5";
 import Error from "./components/Error";
 import RoomNSuites from "./components/RooomNSuites";
 import { ReactLenis } from "lenis/react";
@@ -145,42 +142,6 @@ function App() {
           <Navbar />
           <Navspace />
           <Room2 />
-          <Footer />
-        </>
-      ),
-    },
-    {
-      path: "/Room3",
-      element: (
-        <>
-          <ScrollToTop />
-          <Navbar />
-          <Navspace />
-          <Room3 />
-          <Footer />
-        </>
-      ),
-    },
-    {
-      path: "/Room4",
-      element: (
-        <>
-          <ScrollToTop />
-          <Navbar />
-          <Navspace />
-          <Room4 />
-          <Footer />
-        </>
-      ),
-    },
-    {
-      path: "/Room5",
-      element: (
-        <>
-          <ScrollToTop />
-          <Navbar />
-          <Navspace />
-          <Room5 />
           <Footer />
         </>
       ),

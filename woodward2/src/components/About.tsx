@@ -26,7 +26,7 @@ function About() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.2 }
     );
 
     elementsRef.current.forEach((el) => {
@@ -86,6 +86,7 @@ function About() {
           <div
             className="flex-grow rounded-3xl bg-cover bg-center w-full h-60 sm:h-80 lg:w-[45vw] lg:h-[calc(70vh)]"
             style={{ backgroundImage: `url(${Room1})` }}
+            ref={addToRefs}
           ></div>
           <div
             className="flex-grow w-full lg:w-[45vw] flex flex-col justify-center px-5 sm:px-10 opacity-0"
@@ -129,6 +130,7 @@ function About() {
           <div
             className="flex-grow rounded-3xl bg-cover bg-center w-full h-60 sm:h-80 lg:w-[45vw] lg:h-[calc(70vh)]"
             style={{ backgroundImage: `url(${BookingBanner})` }}
+            ref={addToRefs}
           ></div>
           <div
             className="flex-grow w-full lg:w-[45vw] flex flex-col justify-center px-5 sm:px-10 opacity-0"

@@ -40,11 +40,8 @@ const HotelBookingForm = () => {
 
         // Define the room types
         const roomTypes = [
-          "Eco-Lodge_Room",
-          "Premium_Suite",
-          "Superior_Suite",
-          "Family_Suite",
-          "Deluxe_Room",
+          "Executive_Room",
+          "Superior_Room",
         ];
 
         // Fetch prices dynamically for each room type
@@ -74,11 +71,8 @@ const HotelBookingForm = () => {
 
         // Define the room types
         const roomTypes = [
-          "Eco-Lodge_Room",
-          "Premium_Suite",
-          "Superior_Suite",
-          "Family_Suite",
-          "Deluxe_Room",
+          "Executive_Room",
+          "Superior_Room",
         ];
 
         // Fetch prices dynamically for each room type
@@ -222,7 +216,7 @@ const HotelBookingForm = () => {
 
   // Function to add a room
   const handleRoomAdd = () => {
-    const newRoomType = "Eco-Lodge_Room"; // Default room type
+    const newRoomType = "Executive_Room"; // Default room type
     const currentAvailableRooms = availableRoom[newRoomType] || 0;
 
     if (currentAvailableRooms <= 0) {

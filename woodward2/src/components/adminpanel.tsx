@@ -50,11 +50,8 @@ function AdminDashboard() {
         const occupancy: { [key: string]: number } = {};
 
         const roomTypes = [
-          "Eco-Lodge_Room",
-          "Premium_Suite",
-          "Superior_Suite",
-          "Family_Suite",
-          "Deluxe_Room",
+          "Executive_Room",
+          "Superior_Room",
         ];
 
         for (const roomType of roomTypes) {
