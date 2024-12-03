@@ -1,12 +1,10 @@
 import { useEffect, useRef } from "react";
-import img1 from "../assets/Heroimg.jpg";
 import Gallerybento from "./Gallerybento";
 import backgroundImage from "../assets/river.jpg";
 import greenbg from "../assets/greenbg.jpg";
 import { useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Room1 from "../assets/landingpage/DSC02935.jpg"
-import Room2 from "../assets/landingpage/DSC02917.jpg"
 import BookingBanner from "../assets/landingpage/DSC02961.jpg"
 
 function About() {

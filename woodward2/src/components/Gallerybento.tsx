@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import Galleryimage from "../assets/Heroimg.jpg";
 import Image1 from "../assets/bentogrid/DSC02920.jpg";
 import Image2 from "../assets/bentogrid/DSC02960.jpg";
 import Image3 from "../assets/bentogrid/DSC02970.jpg";
