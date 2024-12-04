@@ -23,7 +23,6 @@ async function setDocumentFieldValue(
       await updateDoc(documentRef, {
         [fieldName]: fieldValue,
       });
-      console.log(`Field '${fieldName}' updated to ${fieldValue}`);
     } else {
       // If document doesn't exist, create a new document with the field value
       await setDoc(documentRef, {

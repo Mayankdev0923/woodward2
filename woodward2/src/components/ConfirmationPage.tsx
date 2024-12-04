@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from 'emailjs-com';
 import { useLocation } from "react-router-dom";
 import setDocumentFieldValue from "./FirebaseUpdate";
 import {
@@ -65,9 +66,58 @@ const ConfirmationPage = () => {
     );
   }
 
-  formData.rooms.forEach((room, index) => {
-    console.log(`Index: ${index}, Item: ${room.roomType} , ${room.guests}`);
-  });
+  const sendEmail = async (templateParams: Record<string, any>) => {
+    try {
+      const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateID2 = import.meta.env.VITE_EMAILJS_TEMPLATE_ID2;
+      const userID = import.meta.env.VITE_EMAILJS_USER_ID;
+  
+      const response = await emailjs.send(serviceID, templateID2, templateParams, userID);
+      return response.status === 200;
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      return false;
+    }
+  };
+
+  const handleSendEmail = async () => {
+    setLoading(true);
+
+    try {
+      const templateParams = {
+        from_name: formData.name, // Replace with dynamic data if needed
+        booking_name: formData.name,
+        booking_email: formData.email,
+        booking_mobile: formData.mobile,
+        booking_request: formData.specialRequests,
+        booking_dob: formData.dob,
+        booking_aadhar: formData.aadhar,
+        booking_checkin: formData.checkInDate,
+        booking_checkout: formData.checkOutDate,
+        booking_total: totalAmount,
+        rooms: `${roomdatasender()}`,
+      };
+
+      await sendEmail(templateParams);
+      setLoading(false);
+      console.log("email sent to admin")
+    } catch (error) {
+      setLoading(false);
+      console.error("failed to send mail : ", error);
+      console.log("email not sent to admin")
+    }
+  };
+
+  const roomdatasender = () => {
+    var returnstring = "\n";
+    formData.rooms.map((room) => (
+      
+    returnstring = returnstring + `${room.roomType} - ${room.guests} Guest(s)` + "\n"
+        
+    ))
+    
+    return returnstring;
+  };
 
   const pushBookingData = async () => {
     setLoading(true);
@@ -160,13 +210,13 @@ const ConfirmationPage = () => {
           room.guests
         );
       }
-
+      handleSendEmail();
+      setHasBooked(true);
       alert("Booking Request sent successfully.");
     } catch (error) {
       console.error("Error pushing booking data:", error);
     } finally {
       setLoading(false);
-      setHasBooked(true);
     }
   };
 
