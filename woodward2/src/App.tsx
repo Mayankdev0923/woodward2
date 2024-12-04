@@ -21,8 +21,6 @@ import ConfirmationPage from "./components/ConfirmationPage";
 import AdminDashboard from "./components/adminpanel";
 import LoginPage from "./components/login";
 import { auth } from "./components/Firebase";
-import Mailer from "./components/mailer";
-
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
