@@ -138,6 +138,12 @@ const ConfirmationPage = () => {
         "verifiedstate",
         false
       );
+      await setDocumentFieldValue(
+        "bookings",
+        `${formData.name}-${formData.checkInDate}`,
+        "emailsent",
+        false
+      );
 
       // Process the rooms array with async/await
       for (const [index, room] of formData.rooms.entries()) {
@@ -155,7 +161,7 @@ const ConfirmationPage = () => {
         );
       }
 
-      alert("Booking data pushed successfully.");
+      alert("Booking Request sent successfully.");
     } catch (error) {
       console.error("Error pushing booking data:", error);
     } finally {
@@ -267,14 +273,16 @@ const ConfirmationPage = () => {
             disabled={!isVerified || hasbooked}
             onClick={finalsubmit}
             className={`w-full px-4 py-2 rounded-lg ${
-              !hasbooked?
-              (isVerified
-                ? "bg-green-900 hover:bg-green-600 text-white"
-                : "bg-greenish text-white cursor-not-allowed")
+              !hasbooked
+                ? isVerified
+                  ? "bg-green-900 hover:bg-green-600 text-white"
+                  : "bg-greenish text-white cursor-not-allowed"
                 : "bg-greenish text-dkbrown cursor-not-allowed"
             }`}
           >
-            {!hasbooked?"Proceed to Confirm My Booking":"Booking Already Completed"}
+            {!hasbooked
+              ? "Proceed to Confirm My Booking"
+              : "Booking Already Completed"}
           </button>
         </div>
       </div>

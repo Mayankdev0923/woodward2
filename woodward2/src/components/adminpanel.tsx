@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { firebaseConfig } from "./Firebase";
 import { initializeApp } from "firebase/app";
+import sendEmail from "../utils/emailService";
 
 type Booking = {
   documentId: string;
@@ -25,7 +26,8 @@ type Booking = {
   specialRequests: string;
   checkInDate: string;
   checkOutDate: string;
-  verifiedstate: boolean; // explicitly declare as boolean
+  verifiedstate: boolean;
+  emailsent: boolean; // explicitly declare as boolean
   [key: string]: string | number | boolean; // allow dynamic fields with boolean values
 };
 
@@ -36,6 +38,12 @@ const db = getFirestore(app);
 
 function AdminDashboard() {
   const [loading, setLoading] = useState(false);
+  const [ispricechanged, setIsPriceChanged] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [iscapacitychanged, setIsCapacityChanged] = useState<{
+    [key: string]: boolean;
+  }>({});
   const [roomPrices, setRoomPrices] = useState<{ [key: string]: number }>({});
   const [roomAvailability, setRoomAvailability] = useState<{
     [key: string]: number;
@@ -46,6 +54,9 @@ function AdminDashboard() {
   const [updatedPrices, setUpdatedPrices] = useState<{ [key: string]: number }>(
     {}
   );
+  const [updatedCapacities, setUpdatedCapacities] = useState<{
+    [key: string]: number;
+  }>({});
   const [allBookings, setAllBookings] = useState<BookingData>([]);
 
   useEffect(() => {
@@ -54,6 +65,8 @@ function AdminDashboard() {
         const prices: { [key: string]: number } = {};
         const availability: { [key: string]: number } = {};
         const occupancy: { [key: string]: number } = {};
+        const changeinprice: { [key: string]: boolean } = {};
+        const changeincapacity: { [key: string]: boolean } = {};
 
         const roomTypes = ["Executive_Room", "Superior_Room"];
 
@@ -73,8 +86,12 @@ function AdminDashboard() {
           prices[roomType] = price;
           availability[roomType] = available;
           occupancy[roomType] = occupied;
+          changeinprice[roomType] = false;
+          changeincapacity[roomType] = false;
         }
 
+        setIsPriceChanged(changeinprice);
+        setIsCapacityChanged(changeincapacity);
         setRoomPrices(prices);
         setRoomAvailability(availability);
         setRoomOccupancy(occupancy);
@@ -106,7 +123,9 @@ function AdminDashboard() {
             specialRequests: "",
             checkInDate: "",
             checkOutDate: "",
-            verifiedstate: false, // Initialize boolean properly
+            totalamount: "",
+            verifiedstate: false,
+            emailsent: false, // Initialize boolean properly
           };
 
           // Fetch fields in the same order
@@ -165,6 +184,11 @@ function AdminDashboard() {
             documentId,
             "verifiedstate"
           );
+          documentData["emailsent"] = await getDocumentFieldValue(
+            "bookings",
+            documentId,
+            "emailsent"
+          );
 
           // Fetch room data dynamically
           let index = 0;
@@ -201,6 +225,63 @@ function AdminDashboard() {
     fetchAllBookingData();
   }, []);
 
+  const handleSendEmail = async (booking: Booking) => {
+    setLoading(true);
+
+    try {
+      const templateParams = {
+        to_name: booking.name, // Replace with dynamic data if needed
+        to_email: booking.email,
+        from_name: "WOODWARD2",
+        booking_name: booking.name,
+        booking_email: booking.email,
+        booking_mobile: booking.mobile,
+        booking_request: booking.specialRequests,
+        booking_dob: booking.dob,
+        booking_aadhar: booking.aadhar,
+        booking_checkin: booking.checkInDate,
+        booking_checkout: booking.checkOutDate,
+        booking_total: booking.totalamount,
+        rooms: `${roomdatasender(booking)}`,
+      };
+
+      await sendEmail(templateParams);
+      setLoading(false);
+      alert(`Confirmation mail sent to ${booking.name} successfully!`);
+      setDocumentFieldValue("bookings", booking.documentId, "emailsent", true);
+      booking.emailsent = true;
+    } catch (error) {
+      setLoading(false);
+      console.error("failed to send mail : ", error);
+      alert("email not sent");
+    }
+  };
+
+  const roomdatasender = (booking: Booking) => {
+    let i = 0;
+    var returnstring = "\n";
+    while (booking[`room${i}`]) {
+      const roomType = booking[`room${i}`] as string;
+      const roomGuest = booking[`room${i}-guests`] as string;
+
+      returnstring =
+        returnstring +
+        "\n     " +
+        `Room ${i + 1} : ` +
+        "\n     " +
+        "Room Type :  " +
+        roomType +
+        "\n     " +
+        "Guests for this room : " +
+        roomGuest +
+        " guest(s)" +
+        "\n";
+      i++;
+    }
+
+    return returnstring;
+  };
+
   const handleVerify = async (booking: Booking) => {
     setLoading(true);
     const roomUpdates: {
@@ -215,10 +296,10 @@ function AdminDashboard() {
       const currentAvailable = roomAvailability[roomType] || 0;
       const currentOccupied = roomOccupancy[roomType] || 0;
 
-      if(currentAvailable == 0){
+      if (currentAvailable == 0) {
         alert("Not enough rooms to assign");
-        setLoading(false)
-        return
+        setLoading(false);
+        return;
       }
 
       // Update local state (decrease available, increase occupied)
@@ -294,7 +375,6 @@ function AdminDashboard() {
       // Fetch current availability and occupancy from the state
       const currentAvailable = roomAvailability[roomType] || 0;
       const currentOccupied = roomOccupancy[roomType] || 0;
-
 
       // Update local state (increase available, decrease occupied)
       roomUpdates[roomType] = {
@@ -420,23 +500,75 @@ function AdminDashboard() {
   };
 
   const handlePriceChange = (roomType: string, newPrice: number) => {
+    setIsPriceChanged((prevPrices) => ({
+      ...prevPrices,
+      [roomType]: true,
+    }));
     setUpdatedPrices((prevPrices) => ({
       ...prevPrices,
       [roomType]: newPrice,
     }));
   };
+  const handleCapacityChange = (roomType: string, newCapacity: number) => {
+    setIsCapacityChanged((prevPrices) => ({
+      ...prevPrices,
+      [roomType]: true,
+    }));
+    setUpdatedCapacities((prevPrices) => ({
+      ...prevPrices,
+      [roomType]: newCapacity,
+    }));
+  };
+
+  const handleUpdateCapacity = (roomType: string) => {
+    const updatedCapacity = updatedCapacities[roomType];
+    if (
+      updatedCapacity !== undefined &&
+      updatedCapacity !== roomAvailability[roomType] + roomOccupancy[roomType]
+    ) {
+      setLoading(true);
+      const newAvailable = updatedCapacity - roomOccupancy[roomType];
+      try {
+        setDocumentFieldValue("rooms", roomType, "available", newAvailable);
+        setIsPriceChanged(() => ({
+          [roomType]: false,
+        }));
+        alert(
+          `The capacity for ${roomType} is updated to ${updatedCapacity} successfully!`
+        );
+        setRoomAvailability((prevPrices) => ({
+          ...prevPrices,
+          [roomType]: newAvailable,
+        }));
+      } catch (error) {
+        console.error(error);
+        alert("Unable to update Capacity");
+      }
+      setLoading(false);
+    }
+  };
 
   const handleUpdatePrice = (roomType: string) => {
     const updatedPrice = updatedPrices[roomType];
     if (updatedPrice !== undefined && updatedPrice !== roomPrices[roomType]) {
-      setDocumentFieldValue("rooms", roomType, "Price", updatedPrice);
-      alert(
-        `The price for ${roomType} is updated to ${updatedPrice} successfully!`
-      );
-      setRoomPrices((prevPrices) => ({
-        ...prevPrices,
-        [roomType]: updatedPrice,
-      }));
+      setLoading(true);
+      try {
+        setDocumentFieldValue("rooms", roomType, "Price", updatedPrice);
+        setIsPriceChanged(() => ({
+          [roomType]: false,
+        }));
+        alert(
+          `The price for ${roomType} is updated to ${updatedPrice} successfully!`
+        );
+        setRoomPrices((prevPrices) => ({
+          ...prevPrices,
+          [roomType]: updatedPrice,
+        }));
+      } catch (error) {
+        console.error(error);
+        alert("Unable to update Price");
+      }
+      setLoading(false);
     }
   };
 
@@ -477,6 +609,7 @@ function AdminDashboard() {
                   <tr className="bg-dkbrown text-gray-300">
                     <th className="p-2 border border-black">Type</th>
                     <th className="p-2 border border-black">Availability</th>
+                    <th className="p-2 border border-black">Total Capacity</th>
                     <th className="p-2 border border-black">Price</th>
                     <th className="p-2 border border-black">Actions</th>
                   </tr>
@@ -510,6 +643,23 @@ function AdminDashboard() {
                         <td className="p-2 border border-black">
                           <input
                             type="number"
+                            value={
+                              updatedCapacities[roomType] ||
+                              roomAvailability[roomType] +
+                                roomOccupancy[roomType]
+                            }
+                            onChange={(e) =>
+                              handleCapacityChange(
+                                roomType,
+                                Number(e.target.value)
+                              )
+                            }
+                            className="w-20 p-2 text-center rounded"
+                          />
+                        </td>
+                        <td className="p-2 border border-black">
+                          <input
+                            type="number"
                             value={updatedPrice || price}
                             onChange={(e) =>
                               handlePriceChange(
@@ -517,15 +667,31 @@ function AdminDashboard() {
                                 Number(e.target.value)
                               )
                             }
-                            className="w-20 p-2 text-center"
+                            className="w-20 p-2 text-center rounded"
                           />
                         </td>
-                        <td className="p-2 border border-black">
+                        <td className="p-2 border border-black space-x-2 space-y-2">
                           <button
+                            disabled={!ispricechanged}
                             onClick={() => handleUpdatePrice(roomType)}
-                            className="bg-blue-500 text-white py-1 px-3 rounded"
+                            className={
+                              ispricechanged[roomType]
+                                ? "bg-blue-500 text-white py-1 px-3 rounded"
+                                : "bg-gray-400 text-white py-1 px-3 rounded cursor-not-allowed"
+                            }
                           >
                             Update Price
+                          </button>
+                          <button
+                            disabled={!iscapacitychanged}
+                            onClick={() => handleUpdateCapacity(roomType)}
+                            className={
+                              iscapacitychanged[roomType]
+                                ? "bg-blue-500 text-white py-1 px-3 rounded"
+                                : "bg-gray-400 text-white py-1 px-3 rounded cursor-not-allowed"
+                            }
+                          >
+                            Update Capacity
                           </button>
                         </td>
                       </tr>
@@ -561,7 +727,8 @@ function AdminDashboard() {
                       Total Billing Amount
                     </th>
                     <th className="p-2 border border-black">Rooms</th>
-                    <th className="p-2 border border-black">Actions</th>{" "}
+                    <th className="p-2 border border-black">Actions</th>
+                    <th className="p-2 border border-black">Email User</th>{" "}
                     {/* Add new column */}
                   </tr>
                 </thead>
@@ -611,7 +778,7 @@ function AdminDashboard() {
                             );
                           })}
                       </td>
-                      <td className="p-2 border border-black space-x-2">
+                      <td className="p-2 border border-black space-x-2 space-y-2">
                         <button
                           onClick={() => handleDeleteBooking(booking)}
                           className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
@@ -623,7 +790,7 @@ function AdminDashboard() {
                             onClick={() => handleVerify(booking)}
                             className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
                           >
-                            Verify Booking
+                            Start User Stay
                           </button>
                         )}
                         {booking.verifiedstate && (
@@ -631,9 +798,24 @@ function AdminDashboard() {
                             onClick={() => handleVacate(booking)}
                             className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600"
                           >
-                            Vacate Room
+                            End User Stay
                           </button>
                         )}
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => handleSendEmail(booking)}
+                          disabled={booking.emailsent}
+                          className={
+                            booking.emailsent
+                              ? "bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600 cursor-not-allowed"
+                              : "bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+                          }
+                        >
+                          {booking.emailsent
+                            ? "Already Confirmed"
+                            : "Email Confirmation"}
+                        </button>
                       </td>
                     </tr>
                   ))}

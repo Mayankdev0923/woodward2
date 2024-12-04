@@ -14,8 +14,9 @@ function LoginPage({ setIsLoggedIn }: LoginPageProps) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  console.log(error)
-
+  if(error){
+    console.error(error)
+  }
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
