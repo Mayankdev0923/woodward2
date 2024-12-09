@@ -332,7 +332,7 @@ const ConfirmationPage = () => {
           >
             {!hasbooked
               ? "Proceed to Confirm My Booking"
-              : "Booking Already Completed"}
+              : "Booking Request Already Sent"}
           </button>
         </div>
       </div>

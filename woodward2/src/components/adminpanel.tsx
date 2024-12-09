@@ -361,56 +361,58 @@ function AdminDashboard() {
   };
 
   const handleDeleteBooking = async (booking: Booking) => {
-    setLoading(true);
+    try{setLoading(true);
 
-    // First, vacate the rooms associated with the booking
-    const roomUpdates: {
-      [key: string]: { available: number; occupied: number };
-    } = {};
+    if (booking.verifiedstate == true) {
+      // First, vacate the rooms associated with the booking
+      const roomUpdates: {
+        [key: string]: { available: number; occupied: number };
+      } = {};
 
-    let i = 0;
-    while (booking[`room${i}`]) {
-      const roomType = booking[`room${i}`] as string;
+      let i = 0;
+      while (booking[`room${i}`]) {
+        const roomType = booking[`room${i}`] as string;
 
-      // Fetch current availability and occupancy from the state
-      const currentAvailable = roomAvailability[roomType] || 0;
-      const currentOccupied = roomOccupancy[roomType] || 0;
+        // Fetch current availability and occupancy from the state
+        const currentAvailable = roomAvailability[roomType] || 0;
+        const currentOccupied = roomOccupancy[roomType] || 0;
 
-      // Update local state (increase available, decrease occupied)
-      roomUpdates[roomType] = {
-        available: currentAvailable + 1, // Increase available
-        occupied: currentOccupied - 1, // Decrease occupied
-      };
+        // Update local state (increase available, decrease occupied)
+        roomUpdates[roomType] = {
+          available: currentAvailable + 1, // Increase available
+          occupied: currentOccupied - 1, // Decrease occupied
+        };
 
-      i++;
-    }
+        i++;
+      }
 
-    // Update the local state first to reflect the changes on the UI
-    setRoomAvailability((prev) => ({
-      ...prev,
-      ...Object.fromEntries(
-        Object.entries(roomUpdates).map(([roomType, { available }]) => [
-          roomType,
-          available,
-        ])
-      ),
-    }));
+      // Update the local state first to reflect the changes on the UI
+      setRoomAvailability((prev) => ({
+        ...prev,
+        ...Object.fromEntries(
+          Object.entries(roomUpdates).map(([roomType, { available }]) => [
+            roomType,
+            available,
+          ])
+        ),
+      }));
 
-    setRoomOccupancy((prev) => ({
-      ...prev,
-      ...Object.fromEntries(
-        Object.entries(roomUpdates).map(([roomType, { occupied }]) => [
-          roomType,
-          occupied,
-        ])
-      ),
-    }));
+      setRoomOccupancy((prev) => ({
+        ...prev,
+        ...Object.fromEntries(
+          Object.entries(roomUpdates).map(([roomType, { occupied }]) => [
+            roomType,
+            occupied,
+          ])
+        ),
+      }));
 
-    // Now, update Firebase with the new room availability and occupancy
-    for (const roomType in roomUpdates) {
-      const { available, occupied } = roomUpdates[roomType];
-      await setDocumentFieldValue("rooms", roomType, "available", available);
-      await setDocumentFieldValue("rooms", roomType, "occupied", occupied);
+      // Now, update Firebase with the new room availability and occupancy
+      for (const roomType in roomUpdates) {
+        const { available, occupied } = roomUpdates[roomType];
+        await setDocumentFieldValue("rooms", roomType, "available", available);
+        await setDocumentFieldValue("rooms", roomType, "occupied", occupied);
+      }
     }
 
     // Delete the booking document after vacating the rooms
@@ -423,7 +425,10 @@ function AdminDashboard() {
     );
 
     alert(`Booking for ${booking.name} has been deleted and rooms vacated.`);
-    setLoading(false);
+    setLoading(false);}catch(error){
+      alert("booking is not deleted! error")
+      console.log("Error, booking not deleted :",error)
+    }
   };
 
   const handleVacate = async (booking: Booking) => {
@@ -500,8 +505,7 @@ function AdminDashboard() {
   };
 
   const handlePriceChange = (roomType: string, newPrice: number) => {
-
-    if(newPrice == roomPrices[roomType]){
+    if (newPrice == roomPrices[roomType]) {
       setIsPriceChanged((prevPrices) => ({
         ...prevPrices,
         [roomType]: false,
@@ -510,7 +514,7 @@ function AdminDashboard() {
         ...prevPrices,
         [roomType]: newPrice,
       }));
-      return
+      return;
     }
     setIsPriceChanged((prevPrices) => ({
       ...prevPrices,
@@ -522,7 +526,6 @@ function AdminDashboard() {
     }));
   };
   const handleCapacityChange = (roomType: string, newCapacity: number) => {
-    
     if (newCapacity == roomAvailability[roomType] + roomOccupancy[roomType]) {
       setIsCapacityChanged((prevPrices) => ({
         ...prevPrices,
@@ -532,7 +535,7 @@ function AdminDashboard() {
         ...prevPrices,
         [roomType]: newCapacity,
       }));
-      return
+      return;
     }
 
     setIsCapacityChanged((prevPrices) => ({

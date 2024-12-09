@@ -82,26 +82,26 @@ const HotelBookingForm = () => {
     fetchRoomPrices();
   }, []);
 
-  // useEffect(() => {
-  //   const calculateTotal = () => {
-  //     let total = 0;
+  useEffect(() => {
+    const calculateTotal = () => {
+      let total = 0;
 
-  //     formData.rooms.forEach((room) => {
-  //       const roomPrice = roomPrices[room.roomType]; // Get price from the fetched roomPrices
-  //       if (roomPrice) {
-  //         total += roomPrice; // Calculate total if the price is defined
-  //       } else {
-  //         console.warn(`Price not found for room type: ${room.roomType}`);
-  //       }
-  //     });
+      formData.rooms.forEach((room) => {
+        const roomPrice = roomPrices[room.roomType]; // Get price from the fetched roomPrices
+        if (roomPrice) {
+          total += roomPrice; // Calculate total if the price is defined
+        } else {
+          console.warn(`Price not found for room type: ${room.roomType}`);
+        }
+      });
 
-  //     setTotalAmount(total);
-  //   };
+      setTotalAmount(total);
+    };
 
-  //   if (Object.keys(roomPrices).length > 0) {
-  //     calculateTotal(); // Only calculate if roomPrices is populated
-  //   }
-  // }, [roomPrices, formData.rooms]);
+    if (Object.keys(roomPrices).length > 0) {
+      calculateTotal(); // Only calculate if roomPrices is populated
+    }
+  }, [roomPrices, formData.rooms]);
 
   const navigate = useNavigate();
 
@@ -546,7 +546,7 @@ const HotelBookingForm = () => {
                         >
                           {roomType} (₹{roomPrices[roomType]} per night) -{" "}
                           {availableRoom[roomType] > 0
-                            ? `${availableRoom[roomType]} available`
+                            ? `${availableRoom[roomType]} left`
                             : "Not Available"}
                         </option>
                       ))}
