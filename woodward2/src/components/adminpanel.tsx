@@ -500,6 +500,18 @@ function AdminDashboard() {
   };
 
   const handlePriceChange = (roomType: string, newPrice: number) => {
+
+    if(newPrice == roomPrices[roomType]){
+      setIsPriceChanged((prevPrices) => ({
+        ...prevPrices,
+        [roomType]: false,
+      }));
+      setUpdatedPrices((prevPrices) => ({
+        ...prevPrices,
+        [roomType]: newPrice,
+      }));
+      return
+    }
     setIsPriceChanged((prevPrices) => ({
       ...prevPrices,
       [roomType]: true,
@@ -510,6 +522,19 @@ function AdminDashboard() {
     }));
   };
   const handleCapacityChange = (roomType: string, newCapacity: number) => {
+    
+    if (newCapacity == roomAvailability[roomType] + roomOccupancy[roomType]) {
+      setIsCapacityChanged((prevPrices) => ({
+        ...prevPrices,
+        [roomType]: false,
+      }));
+      setUpdatedCapacities((prevPrices) => ({
+        ...prevPrices,
+        [roomType]: newCapacity,
+      }));
+      return
+    }
+
     setIsCapacityChanged((prevPrices) => ({
       ...prevPrices,
       [roomType]: true,
@@ -530,15 +555,16 @@ function AdminDashboard() {
       const newAvailable = updatedCapacity - roomOccupancy[roomType];
       try {
         setDocumentFieldValue("rooms", roomType, "available", newAvailable);
-        setIsPriceChanged(() => ({
-          [roomType]: false,
-        }));
         alert(
           `The capacity for ${roomType} is updated to ${updatedCapacity} successfully!`
         );
         setRoomAvailability((prevPrices) => ({
           ...prevPrices,
           [roomType]: newAvailable,
+        }));
+        setIsCapacityChanged((prevPrices) => ({
+          ...prevPrices,
+          [roomType]: false,
         }));
       } catch (error) {
         console.error(error);
@@ -554,7 +580,8 @@ function AdminDashboard() {
       setLoading(true);
       try {
         setDocumentFieldValue("rooms", roomType, "Price", updatedPrice);
-        setIsPriceChanged(() => ({
+        setIsPriceChanged((prevPrices) => ({
+          ...prevPrices,
           [roomType]: false,
         }));
         alert(
@@ -632,7 +659,7 @@ function AdminDashboard() {
                               isAvailable ? "bg-green-500" : "bg-red-500"
                             } text-white`}
                           >
-                            {roomAvailability[roomType]} Available
+                            {roomAvailability[roomType]} Available Now
                           </button>
                           <button className="py-1 px-2 rounded bg-gray-600 text-white">
                             {Number(roomAvailability[roomType]) +

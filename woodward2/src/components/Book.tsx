@@ -5,16 +5,13 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from "react-router-dom";
 import getDocumentFieldValue from "./FirebaseFetch";
 
-
 // Define the Room type
 interface Room {
   roomType: string;
   guests: number;
 }
 
-
 const HotelBookingForm = () => {
-
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
@@ -39,10 +36,7 @@ const HotelBookingForm = () => {
         const available_number: { [key: string]: number } = {};
 
         // Define the room types
-        const roomTypes = [
-          "Executive_Room",
-          "Superior_Room",
-        ];
+        const roomTypes = ["Executive_Room", "Superior_Room"];
 
         // Fetch prices dynamically for each room type
         for (const roomType of roomTypes) {
@@ -57,7 +51,7 @@ const HotelBookingForm = () => {
         // Update the state with the fetched prices
         setavailableRoom(available_number);
       } catch (error) {
-        console.error("Failed to fetch room prices:", error);
+        console.error("Failed to fetch room available:", error);
       }
     };
 
@@ -70,10 +64,7 @@ const HotelBookingForm = () => {
         const prices: { [key: string]: number } = {};
 
         // Define the room types
-        const roomTypes = [
-          "Executive_Room",
-          "Superior_Room",
-        ];
+        const roomTypes = ["Executive_Room", "Superior_Room"];
 
         // Fetch prices dynamically for each room type
         for (const roomType of roomTypes) {
@@ -91,29 +82,28 @@ const HotelBookingForm = () => {
     fetchRoomPrices();
   }, []);
 
-  useEffect(() => {
-    const calculateTotal = () => {
-      let total = 0;
+  // useEffect(() => {
+  //   const calculateTotal = () => {
+  //     let total = 0;
 
-      formData.rooms.forEach((room) => {
-        const roomPrice = roomPrices[room.roomType]; // Get price from the fetched roomPrices
-        if (roomPrice) {
-          total += roomPrice; // Calculate total if the price is defined
-        } else {
-          console.warn(`Price not found for room type: ${room.roomType}`);
-        }
-      });
+  //     formData.rooms.forEach((room) => {
+  //       const roomPrice = roomPrices[room.roomType]; // Get price from the fetched roomPrices
+  //       if (roomPrice) {
+  //         total += roomPrice; // Calculate total if the price is defined
+  //       } else {
+  //         console.warn(`Price not found for room type: ${room.roomType}`);
+  //       }
+  //     });
 
-      setTotalAmount(total);
-    };
+  //     setTotalAmount(total);
+  //   };
 
-    if (Object.keys(roomPrices).length > 0) {
-      calculateTotal(); // Only calculate if roomPrices is populated
-    }
-  }, [roomPrices, formData.rooms]);
+  //   if (Object.keys(roomPrices).length > 0) {
+  //     calculateTotal(); // Only calculate if roomPrices is populated
+  //   }
+  // }, [roomPrices, formData.rooms]);
 
   const navigate = useNavigate();
-
 
   const [_captchaVerified, setCaptchaVerified] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -153,7 +143,7 @@ const HotelBookingForm = () => {
     setTotalAmount(total);
   };
 
-  const handleChange = (
+  const handleChange = async (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >,
@@ -175,24 +165,15 @@ const HotelBookingForm = () => {
         return;
       }
       setFormData((prev) => ({ ...prev, [name]: value }));
-    } else {
-      // Existing change handler logic
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
-
-    if (name === "roomType") {
+    } else if (name === "roomType") {
       const updatedRooms = [...formData.rooms];
       const oldRoomType = updatedRooms[index!].roomType;
       const newRoomType = value;
 
-      // Check if the new room type is available
+      // Check if the new room type is available asynchronously
       const availableCount = availableRoom[newRoomType] || 0;
-      if (availableCount <= 0) {
-        alert(`${newRoomType} is not available.`);
-        return;
-      }
 
-      // Update the room type
+      // Update room type and availability count
       updatedRooms[index!].roomType = newRoomType;
       setFormData({ ...formData, rooms: updatedRooms });
 
@@ -550,17 +531,9 @@ const HotelBookingForm = () => {
                       id={`roomType${index}`}
                       name="roomType"
                       value={room.roomType}
-                      onChange={(e) => {
-                        const selectedRoomType = e.target.value;
-                        const availableCount =
-                          availableRoom[selectedRoomType] || 0;
-
-                        if (availableCount === 0) {
-                          alert(`${selectedRoomType} is not available.`);
-                          return; // Prevent changing the room type if not available
-                        }
-
-                        handleChange(e, index);
+                      onChange={async (e) => {
+                        // Check availability directly in handleChange
+                        await handleChange(e, index);
                       }}
                       className="w-full border-2 border-darkgreen rounded-lg p-3 text-lg font-MTreg focus:outline-none focus:ring-2 focus:ring-greenish"
                     >
