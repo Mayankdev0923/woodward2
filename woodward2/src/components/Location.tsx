@@ -71,17 +71,9 @@ function Location() {
                 ,&nbsp;
                 <a
                   className="transition-all duration-300 ease-in-out hover:underline"
-                  href="tel:8219391994"
+                  href="tel:8168235008"
                 >
-                  8219391994
-                </a>
-                ,&nbsp;
-                <br />
-                <a
-                  className="transition-all duration-300 ease-in-out hover:underline"
-                  href="tel:9728020888"
-                >
-                  9728020888
+                  8168235008
                 </a>
                 ,&nbsp;
                 <a
