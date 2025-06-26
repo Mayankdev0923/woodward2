@@ -128,20 +128,20 @@ const HotelBookingForm = () => {
   };
 
   // Calculate the total cost of rooms
-  const calculateTotal = () => {
-    let total = 0;
+  // const calculateTotal = () => {
+  //   let total = 0;
 
-    formData.rooms.forEach((room) => {
-      const roomPrice = roomPrices[room.roomType]; // Get price from the fetched roomPrices
-      if (roomPrice) {
-        total += roomPrice ; // Calculate total if the price is defined
-      } else {
-        console.warn(`Price not found for room type: ${room.roomType}`);
-      }
-    });
+  //   formData.rooms.forEach((room) => {
+  //     const roomPrice = roomPrices[room.roomType]; // Get price from the fetched roomPrices
+  //     if (roomPrice) {
+  //       total += roomPrice; // Calculate total if the price is defined
+  //     } else {
+  //       console.warn(`Price not found for room type: ${room.roomType}`);
+  //     }
+  //   });
 
-    setTotalAmount(total);
-  };
+  //   setTotalAmount(total);
+  // };
 
   const handleChange = async (
     e: React.ChangeEvent<
@@ -268,26 +268,12 @@ const HotelBookingForm = () => {
       return; // Prevent form submission if email is invalid
     }
 
-    // Calculate total amount for the stay
-    calculateTotal();
-
     // Calculate number of days between check-in and check-out
     const checkIn = new Date(formData.checkInDate);
     const checkOut = new Date(formData.checkOutDate);
     const timeDifference = checkOut.getTime() - checkIn.getTime();
     let numberOfDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
     if (numberOfDays === 0) numberOfDays = 1;
-
-    // Calculate total manually here to avoid relying on async state
-    let total = 0;
-    formData.rooms.forEach((room) => {
-      const roomPrice = roomPrices[room.roomType];
-      if (roomPrice) {
-        total += roomPrice * room.guests;
-      }
-    });
-
-    const totalAmountForStay = total * numberOfDays;
 
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
@@ -299,17 +285,26 @@ const HotelBookingForm = () => {
     // Reset errors before re-checking
     setErrors({});
 
-    // Additional checks...
+    let sum = 0;
+
+      formData.rooms.forEach((room) => {
+        const roomPrice = roomPrices[room.roomType]; // Get price from the fetched roomPrices
+        if (roomPrice) {
+          sum += roomPrice; // Calculate total if the price is defined
+        } else {
+          console.warn(`Price not found for room type: ${room.roomType}`);
+        }
+      });
 
     // Redirect to the confirmation page with form data, total amount, and number of days
     navigate("/confirmation", {
-  state: {
-    formData,
-    totalAmount: totalAmountForStay,
-    numberOfDays,
-    roomPrices, // Pass the room pricing map
-  },
-});
+      state: {
+        formData,
+        totalAmount: sum*numberOfDays,
+        numberOfDays,
+        roomPrices, // Pass the room pricing map
+      },
+    });
 
     console.log("Booking Details Submitted: ", formData);
     alert("Booking details submitted successfully!");

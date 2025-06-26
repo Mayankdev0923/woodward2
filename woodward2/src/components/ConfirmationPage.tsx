@@ -57,8 +57,8 @@ const ConfirmationPage = () => {
   const roomPrices: Record<string, number> = location.state?.roomPrices || {};
   const formData: FormData | undefined = location.state?.formData;
   const totalAmount: number = location.state?.totalAmount || 0;
+  console.log(totalAmount)
   const numberOfDays: number = location.state?.numberOfDays || 0; // Access number of days
-  console.log(totalAmount);
 
   const [isVerified, setIsVerified] = useState(false);
   const [loading, setLoading] = useState(false);
