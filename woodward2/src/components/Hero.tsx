@@ -7,8 +7,6 @@ function Hero() {
         className="w-full h-full flex justify-center items-center rounded bg-cover bg-center filter brightness-50"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
-        {/* Dark Overlay for Better Text Visibility */}
-        <div className=" absolute inset-0 bg-black opacity-30"></div>
 
         {/* Text Container */}
         <div className="relative z-10 text-center px-5 sm:px-20 lg:px-40">

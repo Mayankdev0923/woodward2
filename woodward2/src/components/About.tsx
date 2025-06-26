@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import Gallerybento from "./Gallerybento";
-import backgroundImage from "../assets/mountain.jpg";
+import backgroundImage from "../assets/waterfall.jpg";
 import greenbg from "../assets/greenbg.jpg";
 import { useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
@@ -59,7 +59,7 @@ function About() {
           className="flex justify-center rounded bg-cover bg-center filter brightness-100 text-white"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         >
-          <div className="w-full h-full backdrop-blur-sm sm:backdrop-blur-sm lg:backdrop-blur-md flex justify-center items-center overflow-hidden">
+          <div className="w-full h-full backdrop-blur-sm sm:backdrop-blur-sm lg:backdrop-blur-sm flex justify-center items-center overflow-hidden">
             <div className="absolute inset-0 bg-black opacity-0"></div>
             <div
               className="relative py-20 sm:py-40 w-full max-w-screen-lg px-5 text-center z-10 opacity-0"

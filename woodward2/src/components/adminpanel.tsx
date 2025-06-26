@@ -110,106 +110,32 @@ function AdminDashboard() {
         const snapshot = await getDocs(bookingsCollection);
         const allBookingData: BookingData = [];
 
-        for (const doc of snapshot.docs) {
-          const documentId = doc.id;
+        for (const docSnap of snapshot.docs) {
+          const documentId = docSnap.id;
+          const data = docSnap.data();
+
           const documentData: Booking = {
             documentId,
-            name: "",
-            dob: "",
-            address: "",
-            mobile: "",
-            email: "",
-            aadhar: "",
-            specialRequests: "",
-            checkInDate: "",
-            checkOutDate: "",
-            totalamount: "",
-            verifiedstate: false,
-            emailsent: false, // Initialize boolean properly
+            name: data.name || "",
+            dob: data.dob || "",
+            address: data.address || "",
+            mobile: data.mobile || "",
+            email: data.email || "",
+            aadhar: data.aadhar || "",
+            specialRequests: data.specialRequests || "",
+            checkInDate: data.checkInDate || "",
+            checkOutDate: data.checkOutDate || "",
+            totalamount: data.totalamount || "",
+            verifiedstate: data.verifiedstate || false,
+            emailsent: data.emailsent || false,
           };
 
-          // Fetch fields in the same order
-          documentData["name"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "name"
-          );
-          documentData["dob"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "dob"
-          );
-          documentData["address"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "address"
-          );
-          documentData["mobile"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "mobile"
-          );
-          documentData["email"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "email"
-          );
-          documentData["aadhar"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "aadhar"
-          );
-          documentData["specialRequests"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "specialRequests"
-          );
-          documentData["checkInDate"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "checkInDate"
-          );
-          documentData["checkOutDate"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "checkOutDate"
-          );
-          documentData["totalamount"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "totalamount"
-          );
-          documentData["verifiedstate"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "verifiedstate"
-          );
-          documentData["emailsent"] = await getDocumentFieldValue(
-            "bookings",
-            documentId,
-            "emailsent"
-          );
-
-          // Fetch room data dynamically
-          let index = 0;
-          while (true) {
-            const roomType = await getDocumentFieldValue(
-              "bookings",
-              documentId,
-              `room${index}`
-            );
-            const roomGuests = await getDocumentFieldValue(
-              "bookings",
-              documentId,
-              `room${index}-guests`
-            );
-            if (!roomType) break;
-
-            documentData[`room${index}`] = roomType;
-            documentData[`room${index}-guests`] = roomGuests;
-
-            index++;
-          }
+          // Dynamically extract room data
+          Object.keys(data).forEach((key) => {
+            if (key.startsWith("room")) {
+              documentData[key] = data[key];
+            }
+          });
 
           allBookingData.push(documentData);
         }
@@ -361,73 +287,80 @@ function AdminDashboard() {
   };
 
   const handleDeleteBooking = async (booking: Booking) => {
-    try{setLoading(true);
+    try {
+      setLoading(true);
 
-    if (booking.verifiedstate == true) {
-      // First, vacate the rooms associated with the booking
-      const roomUpdates: {
-        [key: string]: { available: number; occupied: number };
-      } = {};
+      if (booking.verifiedstate == true) {
+        // First, vacate the rooms associated with the booking
+        const roomUpdates: {
+          [key: string]: { available: number; occupied: number };
+        } = {};
 
-      let i = 0;
-      while (booking[`room${i}`]) {
-        const roomType = booking[`room${i}`] as string;
+        let i = 0;
+        while (booking[`room${i}`]) {
+          const roomType = booking[`room${i}`] as string;
 
-        // Fetch current availability and occupancy from the state
-        const currentAvailable = roomAvailability[roomType] || 0;
-        const currentOccupied = roomOccupancy[roomType] || 0;
+          // Fetch current availability and occupancy from the state
+          const currentAvailable = roomAvailability[roomType] || 0;
+          const currentOccupied = roomOccupancy[roomType] || 0;
 
-        // Update local state (increase available, decrease occupied)
-        roomUpdates[roomType] = {
-          available: currentAvailable + 1, // Increase available
-          occupied: currentOccupied - 1, // Decrease occupied
-        };
+          // Update local state (increase available, decrease occupied)
+          roomUpdates[roomType] = {
+            available: currentAvailable + 1, // Increase available
+            occupied: currentOccupied - 1, // Decrease occupied
+          };
 
-        i++;
+          i++;
+        }
+
+        // Update the local state first to reflect the changes on the UI
+        setRoomAvailability((prev) => ({
+          ...prev,
+          ...Object.fromEntries(
+            Object.entries(roomUpdates).map(([roomType, { available }]) => [
+              roomType,
+              available,
+            ])
+          ),
+        }));
+
+        setRoomOccupancy((prev) => ({
+          ...prev,
+          ...Object.fromEntries(
+            Object.entries(roomUpdates).map(([roomType, { occupied }]) => [
+              roomType,
+              occupied,
+            ])
+          ),
+        }));
+
+        // Now, update Firebase with the new room availability and occupancy
+        for (const roomType in roomUpdates) {
+          const { available, occupied } = roomUpdates[roomType];
+          await setDocumentFieldValue(
+            "rooms",
+            roomType,
+            "available",
+            available
+          );
+          await setDocumentFieldValue("rooms", roomType, "occupied", occupied);
+        }
       }
 
-      // Update the local state first to reflect the changes on the UI
-      setRoomAvailability((prev) => ({
-        ...prev,
-        ...Object.fromEntries(
-          Object.entries(roomUpdates).map(([roomType, { available }]) => [
-            roomType,
-            available,
-          ])
-        ),
-      }));
+      // Delete the booking document after vacating the rooms
+      await deleteDoc(doc(db, "bookings", booking.documentId));
 
-      setRoomOccupancy((prev) => ({
-        ...prev,
-        ...Object.fromEntries(
-          Object.entries(roomUpdates).map(([roomType, { occupied }]) => [
-            roomType,
-            occupied,
-          ])
-        ),
-      }));
+      // Update the local state for bookings to reflect the deletion
+      setAllBookings(
+        (prevBookings) =>
+          prevBookings.filter((b) => b.documentId !== booking.documentId) // Remove the deleted booking
+      );
 
-      // Now, update Firebase with the new room availability and occupancy
-      for (const roomType in roomUpdates) {
-        const { available, occupied } = roomUpdates[roomType];
-        await setDocumentFieldValue("rooms", roomType, "available", available);
-        await setDocumentFieldValue("rooms", roomType, "occupied", occupied);
-      }
-    }
-
-    // Delete the booking document after vacating the rooms
-    await deleteDoc(doc(db, "bookings", booking.documentId));
-
-    // Update the local state for bookings to reflect the deletion
-    setAllBookings(
-      (prevBookings) =>
-        prevBookings.filter((b) => b.documentId !== booking.documentId) // Remove the deleted booking
-    );
-
-    alert(`Booking for ${booking.name} has been deleted and rooms vacated.`);
-    setLoading(false);}catch(error){
-      alert("booking is not deleted! error")
-      console.log("Error, booking not deleted :",error)
+      alert(`Booking for ${booking.name} has been deleted and rooms vacated.`);
+      setLoading(false);
+    } catch (error) {
+      alert("booking is not deleted! error");
+      console.log("Error, booking not deleted :", error);
     }
   };
 
