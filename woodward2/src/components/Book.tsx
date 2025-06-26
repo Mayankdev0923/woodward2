@@ -134,7 +134,7 @@ const HotelBookingForm = () => {
     formData.rooms.forEach((room) => {
       const roomPrice = roomPrices[room.roomType]; // Get price from the fetched roomPrices
       if (roomPrice) {
-        total += roomPrice * room.guests; // Calculate total if the price is defined
+        total += roomPrice ; // Calculate total if the price is defined
       } else {
         console.warn(`Price not found for room type: ${room.roomType}`);
       }
@@ -555,7 +555,7 @@ const HotelBookingForm = () => {
                           value={roomType}
                           disabled={availableRoom[roomType] === 0}
                         >
-                          {roomType} (₹{roomPrices[roomType]} per night) -{" "}
+                          {roomType} (₹{roomPrices[roomType]} per Night) -{" "}
                           {availableRoom[roomType] > 0
                             ? `${availableRoom[roomType]} left`
                             : "Not Available"}

@@ -32,25 +32,25 @@ interface FormData {
   rooms: Room[];
 }
 
-// PDF styles
-const styles = StyleSheet.create({
-  page: {
-    padding: 30,
-    backgroundColor: "#fff",
-  },
-  section: {
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 24,
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  text: {
-    fontSize: 14,
-    marginBottom: 5,
-  },
-});
+// // PDF styles
+// const styles = StyleSheet.create({
+//   page: {
+//     padding: 30,
+//     backgroundColor: "#fff",
+//   },
+//   section: {
+//     marginBottom: 10,
+//   },
+//   title: {
+//     fontSize: 24,
+//     textAlign: "center",
+//     marginBottom: 20,
+//   },
+//   text: {
+//     fontSize: 14,
+//     marginBottom: 5,
+//   },
+// });
 
 const ConfirmationPage = () => {
   const location = useLocation();
@@ -559,7 +559,7 @@ const BookingReceipt = ({
           <View style={styles.tableRow}>
             <Text style={styles.cell}>Room</Text>
             <Text style={styles.cell}>Guests</Text>
-            <Text style={styles.cell}>Rate/Night/Guest</Text>
+            <Text style={styles.cell}>Rate/Night</Text>
             <Text style={styles.cell}>Total</Text>
           </View>
         </View>
@@ -567,8 +567,7 @@ const BookingReceipt = ({
         {/* Table Rows */}
         {formData.rooms.map((room, index) => {
           const rate = roomPrices[room.roomType] || 0;
-          const guestCount = room.guests;
-          const rowTotal = rate * numberOfDays * guestCount;
+          const rowTotal = rate * numberOfDays ;
           return (
             <View style={styles.table} key={index}>
               <View style={styles.tableRow}>
