@@ -15,7 +15,8 @@ function Navbar() {
     >
       <div className="flex justify-between items-center w-full ">
         {/* Logo Section */}
-        <div className="text-2xl font-MTreg text-dkkbrown px-3 py-2">
+        <div className="text-2xl font-MTreg text-dkkbrown px-3 py-2 flex items-center gap-4">
+          <img src="/logo.png" className="h-10"></img>
           <Link to="/">4WILDFLOWER</Link>
         </div>
 
@@ -23,6 +24,7 @@ function Navbar() {
         <div className="hidden md:flex text-2xl text-dkkbrown">
           <ul className="font-MTreg flex  px-5 space-x-8 lg:space-x-16 items-center">
             <li className="hover:text-dkbrown transition duration-400">
+              <img src=""></img>
               <Link to="/">
                 <Hvr text="Home" />
               </Link>

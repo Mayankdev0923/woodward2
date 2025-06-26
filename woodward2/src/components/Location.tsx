@@ -47,13 +47,14 @@ function Location() {
         {/* Contact Section */}
         <div
           ref={infoRef}
-          className={`flex flex-col md:flex-row justify-center items-center space-y-10 md:space-x-10 md:space-y-0 p-10 md:p-20 transition-transform duration-700 delay-400 ${
+          className={`flex flex-col md:flex-row justify-center items-center space-y-10 md:space-x-10 md:space-y-0 p-10 md:p-20 transition-transform duration-700 delay-400 gap-10 ${
             infoInView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
           {/* Address Box */}
-          <div className="flex flex-col justify-center items-center w-full md:w-[40vw] h-[70vh] p-5 md:p-10 rounded-3xl space-y-5">
+          <div className="flex flex-col justify-center items-center w-full md:w-[40vw] h-fit gap-2 p-5 md:p-10 rounded-3xl space-y-5">
             <div className="bg-greenish border-4 rounded-2xl w-full md:w-[80%] h-[50%] p-5 md:p-10 flex flex-col justify-center text-lg md:text-xl font-NBI text-dkkbrown">
+              <img src="logo.png" className="md:h-44 md:w-44 h-24 w-24 m-5 ml-0"></img>
               <p>
                 Hotel Woodward 2, near Narayan temple,
                 <br />
@@ -76,6 +77,7 @@ function Location() {
                   8168235008
                 </a>
                 ,&nbsp;
+                <br></br>
                 <a
                   className="transition-all duration-300 ease-in-out hover:underline"
                   href="tel:9215229400"
@@ -84,7 +86,7 @@ function Location() {
                 </a>
               </p>
             </div>
-            <div className="bg-dkbrown hover:bg-dkkbrown text-lg md:text-xl rounded-lg w-full md:w-[80%] h-[10%] text-center flex justify-center items-center text-white">
+            <div className="bg-dkbrown hover:bg-dkkbrown text-lg md:text-xl rounded-lg w-full md:w-[80%] h-[10%] p-4 text-center flex justify-center items-center text-white">
               <a
                 href="https://www.google.com/maps/place/Woodward+2+by+4wildflower/@32.0092829,77.3125712,19.04z/data=!4m6!3m5!1s0x39045d777849c18f:0x4def134125e0432c!8m2!3d32.0092886!4d77.3125674!16s%2Fg%2F11ltnny40b?entry=ttu&g_ep=EgoyMDI0MTAyOS4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank"
@@ -92,7 +94,7 @@ function Location() {
                 Get Directions on Google Maps
               </a>
             </div>
-            <div className="bg-dkbrown hover:bg-dkkbrown text-lg md:text-xl rounded-lg w-full md:w-[80%] h-[10%] text-center flex justify-center items-center text-white">
+            <div className="bg-dkbrown hover:bg-dkkbrown text-lg md:text-xl rounded-lg w-full md:w-[80%] h-[10%] p-4 text-center flex justify-center items-center text-white">
               <a
                 href="https://www.google.com/travel/hotels/s/H63v37QgZa5jQ8XC6"
                 target="_blank"
@@ -104,7 +106,7 @@ function Location() {
 
           {/* Map Section */}
           <div
-            className="w-full md:w-[40vw] h-[70vh] p-5 md:p-10 bg-greenish border-4 border-darkgreen rounded-3xl filter"
+            className="w-full md:w-[40vw] m-0 h-[70vh] p-5 rounded-3xl"
             style={{
               backgroundImage: `url(${greenbg})`,
               backgroundSize: "cover",
@@ -112,7 +114,7 @@ function Location() {
           >
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d845.8038053720056!2d77.31149056946418!3d32.0092833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39045d777849c18f%3A0x4def134125e0432c!2sWoodward%202%20by%204wildflower!5e0!3m2!1sen!2sin!4v1730879556172!5m2!1sen!2sin"
-              className="w-full h-full rounded-3xl"
+              className="w-full h-full rounded-3xl border-4 border-darkgreen"
               title="Location Map"
             ></iframe>
           </div>

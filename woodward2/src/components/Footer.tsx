@@ -8,12 +8,17 @@ function Footer() {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {/* Footer Title */}
-      <div className="font-MTreg w-full text-center text-4xl md:text-5xl text-peachish p-5">
+      <div className=" font-MTreg w-fit text-center text-4xl md:text-5xl text-peachish md:p-5">
         4WILDFLOWER HOSPITAILITY
       </div>
 
       {/* Footer Content */}
       <div className="w-full flex flex-col md:flex-row justify-center items-start md:items-center text-white text-left text-lg md:text-xl font-semibold space-y-10 md:space-y-0 md:space-x-20 md:p-5 px-10">
+        <div className="hidden md:flex ">
+          <Link to="/">
+            <img src="logo.png" className="h-44 w-44"></img>
+          </Link>
+        </div>
         {/* Address Section */}
         <div className="flex flex-col space-y-5 w-[70%] md:w-[30%] px-0 md:px-5">
           <p>
