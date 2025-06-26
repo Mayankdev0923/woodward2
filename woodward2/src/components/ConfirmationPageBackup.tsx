@@ -1,5 +1,5 @@
 import { useState } from "react";
-import emailjs from "emailjs-com";
+import emailjs from 'emailjs-com';
 import { useLocation } from "react-router-dom";
 import setDocumentFieldValue from "./FirebaseUpdate";
 import {
@@ -7,8 +7,6 @@ import {
   Document,
   Page,
   Text,
-  View,
-  Image,
   StyleSheet,
 } from "@react-pdf/renderer";
 import greenbg from "../assets/greenbg.jpg";
@@ -54,7 +52,6 @@ const styles = StyleSheet.create({
 
 const ConfirmationPage = () => {
   const location = useLocation();
-  const roomPrices: Record<string, number> = location.state?.roomPrices || {};
   const formData: FormData | undefined = location.state?.formData;
   const totalAmount: number = location.state?.totalAmount || 0;
   const numberOfDays: number = location.state?.numberOfDays || 0; // Access number of days
@@ -75,16 +72,11 @@ const ConfirmationPage = () => {
       const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const templateID2 = import.meta.env.VITE_EMAILJS_TEMPLATE_ID2;
       const userID = import.meta.env.VITE_EMAILJS_USER_ID;
-
-      const response = await emailjs.send(
-        serviceID,
-        templateID2,
-        templateParams,
-        userID
-      );
+  
+      const response = await emailjs.send(serviceID, templateID2, templateParams, userID);
       return response.status === 200;
     } catch (error) {
-      console.error("Failed to send email:", error);
+      console.error('Failed to send email:', error);
       return false;
     }
   };
@@ -109,22 +101,22 @@ const ConfirmationPage = () => {
 
       await sendEmail(templateParams);
       setLoading(false);
-      console.log("email sent to admin");
+      console.log("email sent to admin")
     } catch (error) {
       setLoading(false);
       console.error("failed to send mail : ", error);
-      console.log("email not sent to admin");
+      console.log("email not sent to admin")
     }
   };
 
   const roomdatasender = () => {
     var returnstring = "\n";
-    formData.rooms.map(
-      (room) =>
-        (returnstring =
-          returnstring + `${room.roomType} - ${room.guests} Guest(s)` + "\n")
-    );
-
+    formData.rooms.map((room) => (
+      
+    returnstring = returnstring + `${room.roomType} - ${room.guests} Guest(s)` + "\n"
+        
+    ))
+    
     return returnstring;
   };
 
@@ -413,11 +405,7 @@ const ConfirmationPage = () => {
 
           <PDFDownloadLink
             document={
-              <BookingReceipt
-                formData={formData}
-                totalAmount={totalAmount}
-                roomPrices={roomPrices}
-              />
+              <BookingReceipt formData={formData} totalAmount={totalAmount} />
             }
             fileName="booking_receipt.pdf"
           >
@@ -453,152 +441,34 @@ const ConfirmationPage = () => {
 const BookingReceipt = ({
   formData,
   totalAmount,
-  roomPrices,
 }: {
   formData: FormData;
   totalAmount: number;
-  roomPrices: Record<string, number>;
 }) => {
-  const checkInDate = new Date(formData.checkInDate);
-  const checkOutDate = new Date(formData.checkOutDate);
-  const numberOfDays =
-    Math.ceil(
-      (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24)
-    ) || 1;
-
-  const styles = StyleSheet.create({
-    page: {
-      padding: 30,
-      fontSize: 12,
-      fontFamily: "Helvetica",
-      backgroundColor: "#fff",
-    },
-    header: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      marginBottom: 20,
-    },
-    logo: {
-      width: 80,
-      height: 80,
-    },
-    hotelInfo: {
-      textAlign: "right",
-    },
-    sectionTitle: {
-      fontSize: 14,
-      marginTop: 10,
-      marginBottom: 6,
-      textDecoration: "underline",
-    },
-    text: {
-      marginBottom: 3,
-    },
-    table: {
-      marginTop: 8,
-      border: "1pt solid black",
-    },
-    tableRow: {
-      flexDirection: "row",
-    },
-    tableHeader: {
-      backgroundColor: "#eee",
-      fontWeight: "bold",
-    },
-    cell: {
-      flex: 1,
-      padding: 5,
-      borderRight: "1pt solid black",
-      borderBottom: "1pt solid black",
-    },
-    footer: {
-      marginTop: 20,
-      paddingTop: 10,
-      fontSize: 11,
-      textAlign: "center",
-      borderTop: "1pt solid #000",
-    },
-  });
-
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Image src="/logo.png" style={styles.logo} />
-          <View style={styles.hotelInfo}>
-            <Text>WOODWARD II by 4WILDFLOWER</Text>
-            <Text>Hotel Woodward 2, near Narayan temple</Text>
-            <Text>tehsil Kasol, Jari, Himachal Pradesh 175105</Text>
-            <Text>Phone: 9317707539, 8168235008, 9215229400</Text>
-            <Text>Email: 4wildflowerhospitality@gmail.com</Text>
-          </View>
-        </View>
-
-        <Text style={{ fontSize: 18, textAlign: "center", marginBottom: 10 }}>
-          Prepayment Receipt
-        </Text>
-
-        {/* Guest Info */}
-        <Text style={styles.sectionTitle}>Guest Details</Text>
+      <Page style={styles.page}>
+        <Text style={styles.title}>Hotel Booking Receipt</Text>
         <Text style={styles.text}>Name: {formData.name}</Text>
-        <Text style={styles.text}>DOB: {formData.dob}</Text>
+        <Text style={styles.text}>Date of Birth: {formData.dob}</Text>
+        <Text style={styles.text}>Address: {formData.address}</Text>
         <Text style={styles.text}>Mobile: {formData.mobile}</Text>
         <Text style={styles.text}>Email: {formData.email}</Text>
         <Text style={styles.text}>Aadhar: {formData.aadhar}</Text>
-        <Text style={styles.text}>Address: {formData.address}</Text>
-
-        {/* Booking Info */}
-        <Text style={styles.sectionTitle}>Booking Summary</Text>
-        <Text style={styles.text}>Check-In: {formData.checkInDate}</Text>
-        <Text style={styles.text}>Check-Out: {formData.checkOutDate}</Text>
-        <Text style={styles.text}>Number of Nights: {numberOfDays}</Text>
-
-        {/* Table Header */}
-        <View style={[styles.table, styles.tableHeader]}>
-          <View style={styles.tableRow}>
-            <Text style={styles.cell}>Room</Text>
-            <Text style={styles.cell}>Guests</Text>
-            <Text style={styles.cell}>Rate/Night/Guest</Text>
-            <Text style={styles.cell}>Total</Text>
-          </View>
-        </View>
-
-        {/* Table Rows */}
-        {formData.rooms.map((room, index) => {
-          const rate = roomPrices[room.roomType] || 0;
-          const guestCount = room.guests;
-          const rowTotal = rate * numberOfDays * guestCount;
-          return (
-            <View style={styles.table} key={index}>
-              <View style={styles.tableRow}>
-                <Text style={styles.cell}>{room.roomType}</Text>
-                <Text style={styles.cell}>{room.guests}</Text>
-                <Text style={styles.cell}>INR {rate}</Text>
-                <Text style={styles.cell}>INR {rowTotal}</Text>
-              </View>
-            </View>
-          );
-        })}
-
-        <Text style={{ textAlign: "right", marginTop: 10, fontSize: 13 }}>
-          <Text style={{ fontWeight: "bold" }}>Total Amount:</Text> INR 
-          {totalAmount.toLocaleString()}
-        </Text>
-
-        {/* Payment Instructions */}
-        <Text style={styles.sectionTitle}>Payment Instructions</Text>
         <Text style={styles.text}>
-          This receipt confirms your booking intent. Please contact the owner
-          directly for payment and confirmation.
+          Special Requests: {formData.specialRequests || "None"}
         </Text>
-        <Text style={styles.text}>Phone: 9317707539</Text>
-        <Text style={styles.text}>Email: 4wildflowerhospitality@gmail.com</Text>
+        <Text style={styles.text}>Check In Date: {formData.checkInDate}</Text>
+        <Text style={styles.text}>Check Out Date: {formData.checkOutDate}</Text>
 
-        {/* Thank You Footer */}
-        <Text style={styles.footer}>
-          Thank you for choosing WOODWARD II. We look forward to hosting you!
-        </Text>
+        <Text style={styles.text}>Rooms:</Text>
+        {formData.rooms.map((room, index) => (
+          <Text key={index} style={styles.text}>
+            {room.roomType} - {room.guests} Guests
+          </Text>
+        ))}
+
+        <Text style={styles.text}>Total: ₹{totalAmount.toLocaleString()}</Text>
       </Page>
     </Document>
   );

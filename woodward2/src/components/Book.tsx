@@ -303,12 +303,13 @@ const HotelBookingForm = () => {
 
     // Redirect to the confirmation page with form data, total amount, and number of days
     navigate("/confirmation", {
-      state: {
-        formData,
-        totalAmount: totalAmountForStay,
-        numberOfDays,
-      },
-    });
+  state: {
+    formData,
+    totalAmount: totalAmountForStay,
+    numberOfDays,
+    roomPrices, // Pass the room pricing map
+  },
+});
 
     console.log("Booking Details Submitted: ", formData);
     alert("Booking details submitted successfully!");
