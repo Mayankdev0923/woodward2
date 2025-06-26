@@ -55,6 +55,7 @@ const ConfirmationPage = () => {
   const formData: FormData | undefined = location.state?.formData;
   const totalAmount: number = location.state?.totalAmount || 0;
   const numberOfDays: number = location.state?.numberOfDays || 0; // Access number of days
+  console.log(totalAmount);
 
   const [isVerified, setIsVerified] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -219,12 +220,108 @@ const ConfirmationPage = () => {
       setLoading(false);
     }
   };
+  const pushRecord = async () => {
+    try {
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "name",
+        formData.name
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "dob",
+        formData.dob
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "address",
+        formData.address
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "mobile",
+        formData.mobile
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "email",
+        formData.email
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "aadhar",
+        formData.aadhar
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "specialRequests",
+        formData.specialRequests
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "checkInDate",
+        formData.checkInDate
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "checkOutDate",
+        formData.checkOutDate
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "totalamount",
+        totalAmount
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "verifiedstate",
+        false
+      );
+      await setDocumentFieldValue(
+        "Record",
+        `${formData.name}-${formData.checkInDate}`,
+        "emailsent",
+        false
+      );
+
+      // Process the rooms array with async/await
+      for (const [index, room] of formData.rooms.entries()) {
+        await setDocumentFieldValue(
+          "Record",
+          `${formData.name}-${formData.checkInDate}`,
+          `room${index}`,
+          room.roomType
+        );
+        await setDocumentFieldValue(
+          "Record",
+          `${formData.name}-${formData.checkInDate}`,
+          `room${index}-guests`,
+          room.guests
+        );
+      }
+    } catch (error) {
+      console.error("Error pushing record :", error);
+    } finally {
+    }
+  };
 
   const finalsubmit = () => {
     alert(
-      "Your Details would be submitted and will be subject to further verification. You may receive a phone call and email concerning your booking validation"
+      "Your Details would be submitted and will be subject to further verification. You may receive a phone call and email concerning your booking validation. Please stay on page until details are being sent!!"
     );
     pushBookingData();
+    pushRecord();
   };
 
   return (

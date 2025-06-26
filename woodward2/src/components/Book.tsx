@@ -275,10 +275,20 @@ const HotelBookingForm = () => {
     const checkIn = new Date(formData.checkInDate);
     const checkOut = new Date(formData.checkOutDate);
     const timeDifference = checkOut.getTime() - checkIn.getTime();
-    const numberOfDays = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Convert milliseconds to days
+    let numberOfDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    if (numberOfDays === 0) numberOfDays = 1;
 
-    // Calculate total amount based on number of days
-    const totalAmountForStay = totalAmount * numberOfDays;
+    // Calculate total manually here to avoid relying on async state
+    let total = 0;
+    formData.rooms.forEach((room) => {
+      const roomPrice = roomPrices[room.roomType];
+      if (roomPrice) {
+        total += roomPrice * room.guests;
+      }
+    });
+
+    const totalAmountForStay = total * numberOfDays;
+
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
     if (checkIn < today) {
@@ -296,7 +306,7 @@ const HotelBookingForm = () => {
       state: {
         formData,
         totalAmount: totalAmountForStay,
-        numberOfDays, // Pass the number of days
+        numberOfDays,
       },
     });
 
