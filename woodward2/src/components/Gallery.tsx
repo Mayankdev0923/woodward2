@@ -75,24 +75,91 @@ import IMG_9778 from "../assets/galleryimages/property/IMG_9778.jpg";
 import IMG_9780 from "../assets/galleryimages/property/IMG_9780.jpg";
 import IMG_9781 from "../assets/galleryimages/property/IMG_9781.jpg";
 
-
 // Consolidated array of imported images
 const imageSources = [
-  IMG_9739, IMG_9741, IMG_9746a, IMG_9750, IMG_9751, 
-  IMG_9752, IMG_9758, IMG_9760, IMG_9761, IMG_9763, 
-  IMG_9764, IMG_9765, IMG_9766, IMG_9767, IMG_9768, 
+  IMG_9739, IMG_9741, IMG_9746a, IMG_9750, IMG_9751,
+  IMG_9752, IMG_9758, IMG_9760, IMG_9761, IMG_9763,
+  IMG_9764, IMG_9765, IMG_9766, IMG_9767, IMG_9768,
   IMG_9772, IMG_9776, IMG_9778, IMG_9780, IMG_9781,
   DSC02949, DSC02950, IMG_9757, DSC02948,
-  IMG_9782, IMG_9784, IMG_9785, IMG_9787, IMG_9790, 
-  IMG_9791, IMG_9793, IMG_9796, IMG_9800, DSC02955, 
+  IMG_9782, IMG_9784, IMG_9785, IMG_9787, IMG_9790,
+  IMG_9791, IMG_9793, IMG_9796, IMG_9800, DSC02955,
   DSC02960, DSC02962, DSC02965, DSC02967, DSC02969,
-  IMG_9731, IMG_9732, IMG_9733, IMG_9734, IMG_9738, 
-  DSC02941, DSC02942, DSC02944, DSC02945, DSC02946, 
-  DSC02914, DSC02916, DSC02917, DSC02918, DSC02920, 
+  IMG_9731, IMG_9732, IMG_9733, IMG_9734, IMG_9738,
+  DSC02941, DSC02942, DSC02944, DSC02945, DSC02946,
+  DSC02914, DSC02916, DSC02917, DSC02918, DSC02920,
   DSC02936, DSC02937, DSC02939, DSC02940,
   DSC02929, DSC02932, DSC02928
-
 ];
+
+// LazyImage Component with Intersection Observer
+interface LazyImageProps {
+  src: string;
+  alt: string;
+  index: number;
+  onClick?: () => void;
+}
+
+function LazyImage({ src, alt, index, onClick }: LazyImageProps) {
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setImageSrc(src);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        rootMargin: "50px", // Start loading 50px before entering viewport
+        threshold: 0.01,
+      }
+    );
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => {
+      if (imgRef.current) {
+        observer.unobserve(imgRef.current);
+      }
+    };
+  }, [src]);
+
+  return (
+    <div className="w-full md:w-1/2 p-1 md:p-2">
+      <div className="relative overflow-hidden rounded-lg bg-gray-200">
+        {/* Placeholder with aspect ratio */}
+        <div className="aspect-[4/3] w-full">
+          <img
+            ref={imgRef}
+            src={imageSrc || undefined}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            className={`block h-full w-full object-cover object-center cursor-pointer transition-opacity duration-300 ${
+              isLoaded ? "opacity-100" : "opacity-0"
+            }`}
+            onClick={onClick}
+            onLoad={() => setIsLoaded(true)}
+          />
+          {/* Loading spinner/placeholder */}
+          {!isLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+              <div className="animate-pulse text-gray-400">Loading...</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function Gallery() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -115,7 +182,7 @@ function Gallery() {
 
   const handleOutsideClick = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setSelectedImage(null); // Close modal when clicked outside
+      setSelectedImage(null);
     }
   };
 
@@ -128,20 +195,6 @@ function Gallery() {
     };
   }, [selectedImage, isMobile]);
 
-  const renderImage = (src: string, index: number) => (
-    <div
-      key={index}
-      className="w-full md:w-1/2 p-1 md:p-2"
-    >
-      <img
-        alt={`Gallery image ${index + 1}`}
-        className="block h-full w-full rounded-lg object-cover object-center cursor-pointer"
-        src={src}
-        onClick={() => !isMobile && setSelectedImage(index)} // Disable expanding view on mobile
-      />
-    </div>
-  );
-
   return (
     <HelmetProvider>
       <div
@@ -149,7 +202,11 @@ function Gallery() {
         style={{ backgroundImage: `url(${greenbg})` }}
       >
         <Helmet>
-          <title>Gallery</title>
+          <title>Gallery - 4 Wildflower Hospitality</title>
+          <meta
+            name="description"
+            content="Explore our gallery showcasing beautifully designed rooms, amenities, and property views at Woodward II, Kasol."
+          />
         </Helmet>
 
         {/* Header */}
@@ -166,10 +223,18 @@ function Gallery() {
           </p>
         </div>
 
-        {/* Gallery Images */}
+        {/* Gallery Images with Lazy Loading */}
         <div className="container mx-auto px-5 py-20 lg:px-32 lg:pt-24">
           <div className="-m-1 flex flex-wrap md:-m-2">
-            {imageSources.map((src, index) => renderImage(src, index))}
+            {imageSources.map((src, index) => (
+              <LazyImage
+                key={index}
+                src={src}
+                alt={`Gallery image ${index + 1} - 4 Wildflower Hospitality`}
+                index={index}
+                onClick={() => !isMobile && setSelectedImage(index)}
+              />
+            ))}
           </div>
         </div>
 
@@ -184,6 +249,7 @@ function Gallery() {
                 src={imageSources[selectedImage]}
                 alt={`Expanded image ${selectedImage + 1}`}
                 className="rounded-lg h-full w-full object-contain"
+                loading="eager"
               />
               <div className="flex justify-between mt-4">
                 {/* Previous Button */}
