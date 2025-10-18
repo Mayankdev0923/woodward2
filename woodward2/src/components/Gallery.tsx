@@ -100,7 +100,7 @@ interface LazyImageProps {
   onClick?: () => void;
 }
 
-function LazyImage({ src, alt, index, onClick }: LazyImageProps) {
+function LazyImage({ src, alt, onClick }: LazyImageProps) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
