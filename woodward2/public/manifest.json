@@ -1,0 +1,21 @@
+{
+  "name": "Woodward II by 4 Wildflower Hospitality",
+  "short_name": "Woodward II Kasol",
+  "description": "Best hotel in Kasol with mountain views and modern amenities",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4A7C59",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
