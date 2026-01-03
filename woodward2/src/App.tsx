@@ -15,12 +15,18 @@ import { ReactLenis } from "lenis/react";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import TermsAndPolicies from "./components/Terms";
 import LocalAttractions from "./components/LocalAttractions";
-import HotelBookingForm from "./components/Book";
 import ScrollToTop from "./components/ScrollToTop";
 import ConfirmationPage from "./components/ConfirmationPage";
 import AdminDashboard from "./components/adminpanel";
 import LoginPage from "./components/login";
 import { auth } from "./components/Firebase";
+
+const MyHotelLineRedirect = () => {
+  useEffect(() => {
+    window.location.href = "https://hg.myhotelline.com/benew.html?propertyId=WOO-BZCX-OWER#"; // Send user back to home after opening tab
+  }, []);
+  return null;
+};
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -192,15 +198,7 @@ function App() {
     },
     {
       path: "/Book",
-      element: (
-        <>
-          <ScrollToTop />
-          <Navbar />
-          <Navspace />
-          <HotelBookingForm />
-          <Footer />
-        </>
-      ),
+      element: <MyHotelLineRedirect />,
     },
     {
       path: "/Confirmation",
